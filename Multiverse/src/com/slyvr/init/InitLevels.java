@@ -13,9 +13,11 @@ public class InitLevels {
 	public static void init(Global global)
     {
         Level menuLevel = InitLevelMenu.init(global);
+        Level level0 = InitLevel0.loadLevel0(global);
 
         ArrayList<Level> levels = new ArrayList<Level>();
         levels.add(menuLevel);
+        levels.add(level0);
         global.setLevels(levels);
         global.getCurrent().setCurrentLevel(menuLevel);
         global.setMenuLevel(menuLevel);

@@ -15,7 +15,7 @@ public class Verse {
     private int entlimit;
     private int blocklimit;
     private Color bgColor;
-    private Img background;
+    private ArrayList<Block> background;
     private String verseString;
 
     //Constructor
@@ -158,13 +158,13 @@ public class Verse {
         bgColor = color;
     }
     //Bg Color
-    public Img getVerseBackground()
+    public ArrayList<Block> getVerseBackground()
     {
         return background;
     }
-    public void setVerseBackground(Img img)
+    public void setVerseBackground(ArrayList<Block> blocks)
     {
-        background = img;
+        background = blocks;
     }
     //Verse String
     public String getVerseString()

@@ -64,13 +64,13 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("btn_changeVol",global.getSheetByName("btns2"),0,3,new Rectangle(250,200,width,height)));
-			menuItems.add(new MenuItem("txt_volume","Volume: 1.0",new Rectangle(300,200,0,0)));
+			menuItems.add(new MenuItem("btn_changeVol",global.getSheetByName("btns2"),0,3,new Rectangle(350,200,width,height)));
+			menuItems.add(new MenuItem("txt_volume","Volume: 1.0",new Rectangle(400,200,0,0)));
 			
-			menuItems.add(new MenuItem("btn_changeFullScreen",global.getSheetByName("btns2"),0,3,new Rectangle(250,260,width,height)));
-			menuItems.add(new MenuItem("txt_fullscreen","Windowed",new Rectangle(300,260,0,0)));
+			menuItems.add(new MenuItem("btn_changeFullScreen",global.getSheetByName("btns2"),0,3,new Rectangle(350,260,width,height)));
+			menuItems.add(new MenuItem("txt_fullscreen","Windowed",new Rectangle(400,260,0,0)));
 			
-			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(300,360,width,height)));
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,360,width,height)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -98,10 +98,10 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("btn_newgame",global.getSheetByName("btns2"),0,1,new Rectangle(300,200,width,height)));
-			menuItems.add(new MenuItem("btn_save",global.getSheetByName("btns"),0,0,new Rectangle(300,280,width,height)));
-			menuItems.add(new MenuItem("btn_load",global.getSheetByName("btns"),0,3,new Rectangle(300,360,width,height)));
-			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(300,440,width,height)));
+			menuItems.add(new MenuItem("btn_newgame",global.getSheetByName("btns2"),0,1,new Rectangle(400,200,width,height)));
+			menuItems.add(new MenuItem("btn_save",global.getSheetByName("btns"),0,0,new Rectangle(400,280,width,height)));
+			menuItems.add(new MenuItem("btn_load",global.getSheetByName("btns"),0,3,new Rectangle(400,360,width,height)));
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,440,width,height)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -115,10 +115,10 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("btn_newgame",global.getSheetByName("btns2"),0,1,new Rectangle(300,200,width,height)));
-			menuItems.add(new MenuItem("btn_save",global.getSheetByName("btns"),0,0,new Rectangle(300,280,width,height)));
-			menuItems.add(new MenuItem("btn_load",global.getSheetByName("btns"),0,3,new Rectangle(300,360,width,height)));
-			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(300,440,width,height)));
+			menuItems.add(new MenuItem("btn_newgame",global.getSheetByName("btns2"),0,1,new Rectangle(400,200,width,height)));
+			menuItems.add(new MenuItem("btn_save",global.getSheetByName("btns"),0,0,new Rectangle(400,280,width,height)));
+			menuItems.add(new MenuItem("btn_load",global.getSheetByName("btns"),0,3,new Rectangle(400,360,width,height)));
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,440,width,height)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -132,7 +132,7 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(300,360,width,height)));
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,360,width,height)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -146,7 +146,7 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(300,360,width,height)));
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,360,width,height)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -160,7 +160,7 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(300,360,width,height)));
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,360,width,height)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -174,7 +174,7 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			
+			menuItems.add(new MenuItem("leveltext","Level 1",new Rectangle(0, 0, 0, 0)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}

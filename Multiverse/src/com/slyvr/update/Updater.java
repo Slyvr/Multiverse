@@ -12,6 +12,7 @@ public class Updater {
 	
 	public static void update(GameContainer container, int delta, Global global) throws SlickException{
 		
+		UpdatePlayer.updateMovement(container, global);
 		UpdateButtonClick.update(container, global);
 		UpdateMusic.update(container, global);
 		

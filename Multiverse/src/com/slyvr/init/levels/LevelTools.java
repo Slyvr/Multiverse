@@ -90,8 +90,7 @@ public class LevelTools {
             for (int x = 0; x < 990; x += 30)
             {
                 //Each Block's Pixels
-                Color colorA = gridTex.getColor(x, y);
-
+                Color colorA = gridTex.getColor(x+5, y+5);
                 if (colorA.getRed() == 127 && colorA.getGreen() == 127 && colorA.getBlue() == 127)
                 {
                     Entity ent = new Entity(global.getEntityByName("ent_block_rock"));

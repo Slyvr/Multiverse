@@ -18,11 +18,11 @@ public class Global {
     private Boolean paused;
     private ParticleEngine particleEngine;
     private Level menuLevel;
-    private Calendar time;
     private long millisec;
 	
 	public Global(){
 		current=new Current();
+		millisec = System.currentTimeMillis();
 	}
 	
 	//Current
@@ -181,11 +181,6 @@ public class Global {
     public void setMenuLevel(Level level)
     {
         menuLevel = level;
-    }
-    //Time
-    public Calendar getTime()
-    {
-        return time;
     }
     //Milliseconds
     public long getMilliseconds()

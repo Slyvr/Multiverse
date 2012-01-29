@@ -18,8 +18,17 @@ public class InitLevelMenu {
         Verse verse = new Verse();
         verse.setVerseId(1);
         verse.setVerseBgColor(Color.gray);
-        verse.setVerseBackground(global.getImageByName("bg3"));
         verse.setVerseBlockLimit(0);
+        
+        ArrayList<Block> background = new ArrayList<Block>();
+        for(int x=0; x<990; x+=30){
+        	for (int y=0; y<660; y+=30){
+        		Block block = new Block(global.getBlockByTextureName("block_tech1-1"));
+        		block.setBlockPos(new Rectangle(x,y,30,30));
+        		background.add(block);
+        	}
+        }
+        verse.setVerseBackground(background);
 
         ArrayList<Block> verseBlocks = LevelTools.generateLevelBlocks(global, global.getImageByName("grid_levelMain").getImage(), false);
         verse.setVerseBlocks(verseBlocks);
@@ -28,7 +37,7 @@ public class InitLevelMenu {
         verse.setVerseEntities(verseEnts);
 
         Entity player = new Entity(global.getEntityByName("Player"));
-        player.setEntityPos(new Rectangle(150,260,30,30));
+        player.setEntityPos(new Rectangle(150,400,30,30));
 
         Level level = new Level();
         level.setLevelId(0);

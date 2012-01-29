@@ -25,11 +25,16 @@ public class InitImages {
 			images.add(new Img(new Image("resources/imgs/blocks/block_grass.png"),"block_grass"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_wood.png"),"block_wood"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech1.png"),"block_tech1"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech1-1.png"),"block_tech1-1"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech2.png"),"block_tech2"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech3.png"),"block_tech3"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_portal.png"),"block_portal"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_respawn.png"),"block_respawn"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_highlight.png"),"block_highlight"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_btnDown.png"),"block_btnDown"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_btnUp.png"),"block_btnUp"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_door.png"),"block_door"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_doorway.png"),"block_doorway"));
 			
 			//Entities
 			images.add(new Img(new Image("resources/imgs/entities/player/player_jet_jump_left.png"),"player_jet_jump_left"));
