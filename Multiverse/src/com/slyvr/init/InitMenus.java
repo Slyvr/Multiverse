@@ -175,6 +175,7 @@ public class InitMenus {
 		
 		try{
 			menuItems.add(new MenuItem("leveltext","Level 1",new Rectangle(0, 0, 0, 0)));
+			menuItems.add(new MenuItem("inventory",global.getImageByName("inventory"),new Rectangle(960, 0, 0, 0)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}

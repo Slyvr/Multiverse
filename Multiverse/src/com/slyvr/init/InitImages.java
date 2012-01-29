@@ -18,6 +18,7 @@ public class InitImages {
 			//Menu Stuff
 			images.add(new Img(new Image("resources/imgs/btn_cursor.png"),"btn_cursor"));
 			images.add(new Img(new Image("resources/imgs/logo.png"),"logo"));
+			images.add(new Img(new Image("resources/imgs/inventory.png"),"inventory"));
 			sheets.add(new ImgSheet(new SpriteSheet(new Image("resources/imgs/btns.png"),193,58), "btns"));
 			sheets.add(new ImgSheet(new SpriteSheet(new Image("resources/imgs/btns2.png"),193,58), "btns2"));
 			

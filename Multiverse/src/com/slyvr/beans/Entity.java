@@ -15,6 +15,8 @@ public class Entity {
     private Img entImg;
     private int entAttackRange;
     private Color color;
+    private Block inventoryBlock;
+    
     //Constructor
     public Entity()
     {
@@ -178,5 +180,12 @@ public class Entity {
     public void setEntityColor(Color color)
     {
         this.color = color;
+    }
+    //Inventory Block
+    public Block getInventoryBlock(){
+    	return inventoryBlock;
+    }
+    public void setInventoryBlock(Block block){
+    	inventoryBlock=block;
     }
 }

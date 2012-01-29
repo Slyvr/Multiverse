@@ -43,6 +43,7 @@ public class Block {
         blockPos = pos;
         blockImg = img;
         removable = rem;
+        affectBlockTotal = false;
         color = Color.white;
     }
     //Id

@@ -10,6 +10,7 @@ public class InitBlocks {
 	
 	public static void init(Global global)
     {
+		Block highlight = new Block(0,1,new Rectangle(0,0,30,30),global.getImageByName("block_highlight"),false);
         Block tech1 = new Block(1, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech1"), true);
         Block tech1_1 = new Block(2, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech1-1"), true);
         Block tech2 = new Block(3, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech2"), true);
@@ -20,6 +21,7 @@ public class InitBlocks {
         Block portal = new Block(8, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_portal"), false);
 
         ArrayList<Block> blocks = new ArrayList<Block>();
+        blocks.add(highlight);
         blocks.add(tech1);
         blocks.add(tech1_1);
         blocks.add(tech2);

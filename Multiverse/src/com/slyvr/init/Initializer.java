@@ -10,6 +10,9 @@ public class Initializer {
 
 	public static void init(GameContainer container, Global global) throws SlickException{
 		
+		container.setShowFPS(false);
+		container.setMouseGrabbed(true);
+		
 		//container.setMouseGrabbed(true);
 		System.out.println("Loading images...");
 		InitImages.init(global);

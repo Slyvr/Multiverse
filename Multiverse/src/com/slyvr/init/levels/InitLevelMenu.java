@@ -37,7 +37,7 @@ public class InitLevelMenu {
         verse.setVerseEntities(verseEnts);
 
         Entity player = new Entity(global.getEntityByName("Player"));
-        player.setEntityPos(new Rectangle(150,400,30,30));
+        player.setEntityPos(new Rectangle(150,270,30,30));
 
         Level level = new Level();
         level.setLevelId(0);

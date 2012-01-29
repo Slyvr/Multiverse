@@ -12,7 +12,11 @@ public class Updater {
 	
 	public static void update(GameContainer container, int delta, Global global) throws SlickException{
 		
-		UpdatePlayer.updateMovement(container, global);
+		if (global.getCurrent().getMenu().getName().contains("game")){
+			UpdatePlayer.updateMovement(container, global);
+			UpdateBlocks.updateBlockPlacement(global, container);
+		}
+		
 		UpdateButtonClick.update(container, global);
 		UpdateMusic.update(container, global);
 		

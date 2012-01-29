@@ -23,7 +23,6 @@ public class Main extends BasicGame {
 	
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		container.setShowFPS(false);
 		global = new Global();
 		Initializer.init(container, global);
 	}
