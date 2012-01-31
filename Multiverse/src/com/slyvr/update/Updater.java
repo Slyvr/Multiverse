@@ -15,6 +15,7 @@ public class Updater {
 		if (global.getCurrent().getMenu().getName().contains("game")){
 			UpdatePlayer.updateMovement(container, global);
 			UpdateBlocks.updateBlockPlacement(global, container);
+			UpdateBlocks.updateWoodBlocks(global);
 		}
 		
 		UpdateButtonClick.update(container, global);

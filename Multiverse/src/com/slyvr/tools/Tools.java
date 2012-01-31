@@ -6,6 +6,17 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Tools {
 
+	public static int getDistance(Rectangle rect1, Rectangle rect2){
+		int distance =0;
+		
+		int xDiff = (int) Math.abs(rect1.getX() - rect2.getX());
+		int yDiff = (int) Math.abs(rect1.getY() - rect2.getY());
+		
+		distance = ((xDiff^2) + (yDiff^2))^(1/2);
+		
+		return distance;
+	}
+	
 	public static Color[] getColorData(Image img){
 		Color[] imgColor = new Color[img.getWidth() * img.getHeight()];
 		for(int x=0; x<img.getWidth(); x++){

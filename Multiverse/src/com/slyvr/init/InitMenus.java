@@ -98,6 +98,7 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
+			menuItems.add(new MenuItem("btn_resume",global.getSheetByName("btns2"),0,3,new Rectangle(400,120,width,height)));
 			menuItems.add(new MenuItem("btn_newgame",global.getSheetByName("btns2"),0,1,new Rectangle(400,200,width,height)));
 			menuItems.add(new MenuItem("btn_save",global.getSheetByName("btns"),0,0,new Rectangle(400,280,width,height)));
 			menuItems.add(new MenuItem("btn_load",global.getSheetByName("btns"),0,3,new Rectangle(400,360,width,height)));
@@ -115,6 +116,7 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
+			menuItems.add(new MenuItem("btn_resume",global.getSheetByName("btns2"),0,3,new Rectangle(400,120,width,height)));
 			menuItems.add(new MenuItem("btn_newgame",global.getSheetByName("btns2"),0,1,new Rectangle(400,200,width,height)));
 			menuItems.add(new MenuItem("btn_save",global.getSheetByName("btns"),0,0,new Rectangle(400,280,width,height)));
 			menuItems.add(new MenuItem("btn_load",global.getSheetByName("btns"),0,3,new Rectangle(400,360,width,height)));
@@ -175,7 +177,8 @@ public class InitMenus {
 		
 		try{
 			menuItems.add(new MenuItem("leveltext","Level 1",new Rectangle(0, 0, 0, 0)));
-			menuItems.add(new MenuItem("inventory",global.getImageByName("inventory"),new Rectangle(960, 0, 0, 0)));
+			menuItems.add(new MenuItem("inventory",global.getImageByName("inventory"),new Rectangle(960, 0, 30, 30)));
+			menuItems.add(new MenuItem("invblock",global.getCurrent().getCurrentBlockType().getBlockImg(),new Rectangle(964, 4, 22, 22)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}

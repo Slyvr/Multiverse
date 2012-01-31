@@ -19,6 +19,9 @@ public class InitBlocks {
         Block wood = new Block(6, 1, new Rectangle(0,0,30,30), global.getImageByName("block_wood"),true);
         Block respawn = new Block(7, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_respawn"), false);
         Block portal = new Block(8, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_portal"), false);
+        Block btn = new Block(9, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_btnUp"), false);
+        Block door = new Block(10, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_door"), false);
+        Block doorway = new Block(11, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_doorway"), false);
 
         ArrayList<Block> blocks = new ArrayList<Block>();
         blocks.add(highlight);
@@ -30,6 +33,9 @@ public class InitBlocks {
         blocks.add(wood);
         blocks.add(respawn);
         blocks.add(portal);
+        blocks.add(btn);
+        blocks.add(door);
+        blocks.add(doorway);
         global.setBlocks(blocks);
     }
 }

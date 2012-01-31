@@ -1,7 +1,6 @@
 package com.slyvr.beans;
 
 import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Input;
 
 public class Options {
 	private Boolean fullscreen;

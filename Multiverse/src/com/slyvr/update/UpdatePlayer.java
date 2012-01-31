@@ -3,13 +3,11 @@ package com.slyvr.update;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
-import com.slyvr.tools.Tools;
 
 public class UpdatePlayer {
 
@@ -109,43 +107,32 @@ public class UpdatePlayer {
             else onGround = false;
             //fall to death
             if (player.getEntityPos().getY() > 680){
-                Block respawn = null;
-                for (int i=0; i<global.getCurrent().getCurrentVerse().getVerseBlocks().size(); i++){
-                	Block block = global.getCurrent().getCurrentVerse().getVerseBlocks().get(i);
-                    if (block.getBlockImg().getName().contains("block_respawn")){
-                        respawn = block;
-                        break;
-                    }
-                }
-                if (respawn != null){
-                    respawnPlayer(global);
-                }
-                else{
-                    player.setEntityX(0);
-                    player.setEntityY(0);
-                }
+                respawnPlayer(global);
             }
 			
 			prevMilli = System.currentTimeMillis();
         }
-		//prevMilli = System.currentTimeMillis();
 	}
 	
 	public static void respawnPlayer(Global global){
 		Entity player = global.getCurrent().getCurrentPlayer(global.getCurrent());
-		Rectangle respawnPos = global.getCurrent().getCurrentRespawn(global.getCurrent()).getBlockPos();
-		Rectangle pos = new Rectangle(respawnPos.getX(), respawnPos.getY()-10,respawnPos.getWidth(), respawnPos.getHeight());
-		player.setEntityPos(pos);
+		if (global.getCurrent().getCurrentRespawn(global.getCurrent())!=null){
+			Rectangle respawnPos = global.getCurrent().getCurrentRespawn(global.getCurrent()).getBlockPos();
+			Rectangle pos = new Rectangle(respawnPos.getX(), respawnPos.getY()-10,respawnPos.getWidth(), respawnPos.getHeight());
+			player.setEntityPos(pos);
+		}
+		else{
+			player.setEntityPos(new Rectangle(0,0,30,30));
+		}
 	}
 	
 	public static Boolean processBlockCollisions(Entity player, ArrayList<Block> blocks)
     {
-        Color[] playerTextureData = Tools.getColorData(player.getEntityImg().getImage());
         for (int i=0; i<blocks.size(); i++){
         	Block block = blocks.get(i);
         	Rectangle pos = new Rectangle(player.getEntityPos().getX(),player.getEntityPos().getY(),player.getEntityPos().getWidth()-5,player.getEntityPos().getHeight());
             if (block.getBlockPos().intersects(pos)){
-            	if (!block.getBlockImg().getName().contains("respawn")){
+            	if (!block.getBlockImg().getName().contains("respawn") && !block.getBlockImg().getName().contains("portal")){
 	            	returnBlock = block;
 	            	return true;
             	}
@@ -154,7 +141,6 @@ public class UpdatePlayer {
         return false;
     }
 	public static Boolean processEntityCollisions(Entity player, ArrayList<Entity> ents){
-        Color[] playerTextureData = Tools.getColorData(player.getEntityImg().getImage());
         for (int i=0; i<ents.size(); i++){
         	Entity ent = ents.get(i);
         	Rectangle pos = new Rectangle(player.getEntityPos().getX(),player.getEntityPos().getY(),player.getEntityPos().getWidth()-5,player.getEntityPos().getHeight());

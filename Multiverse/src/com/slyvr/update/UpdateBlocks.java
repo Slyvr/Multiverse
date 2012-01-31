@@ -7,11 +7,17 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
+import com.slyvr.tools.Tools;
 
 public class UpdateBlocks {
 
 	static Input prevInput;
 	static Boolean buttonPressed;
+	static int blockPlaceDistance = 150;
+	static Block returnBlock;
+	static Entity returnEnt;
+	static int blockFallSpeed=5;
+	static long prevMilli;
 	
 	public static void updateBlockPlacement(Global global, GameContainer container){
 		Input input = container.getInput();
@@ -56,26 +62,21 @@ public class UpdateBlocks {
             //place a new block
             if (buttonPressed)
             {
-                int blockcount = 0;
-                for (int i=0; i<global.getCurrent().getCurrentVerse().getVerseBlocks().size(); i++){
-                	Block block = global.getCurrent().getCurrentVerse().getVerseBlocks().get(i);
-                    if (block.getAffectBlockTotal())
-                    {
-                        blockcount++;
-                    }
+                Boolean returnval = processAllCollisions(input, global);
+                if (!returnval)
+                {
+                	if (Tools.getDistance(new Rectangle(input.getMouseX(),input.getMouseY(),5,5), global.getCurrent().getCurrentPlayer(global.getCurrent()).getEntityPos())<blockPlaceDistance){
+	                    if (global.getCurrent().getCurrentBlockType()!=null){
+	                		Block block = new Block(global.getCurrent().getCurrentBlockType());
+		                    Rectangle pos = new Rectangle(input.getMouseX(), input.getMouseY(), block.getBlockImg().getImage().getWidth(), block.getBlockImg().getImage().getHeight());
+		                    block.setBlockPos(pos);
+		                    block.setAffectBlockTotal(true);
+		                    block.setPlayerPlaced(true);
+		                    global.getCurrent().getCurrentVerse().addVerseBlock(block);
+		                    global.getCurrent().setCurrentBlockType(null);
+	                    }
+                	}
                 }
-                //if (blockcount < global.getCurrent().getCurrentVerse().getVerseBlockLimit()){
-                    Boolean returnval = processAllCollisions(input, global);
-                    if (!returnval)
-                    {
-                        Block block = new Block(global.getBlockByTextureName("block_tech3"));
-                        Rectangle pos = new Rectangle(input.getMouseX(), input.getMouseY(), block.getBlockImg().getImage().getWidth(), block.getBlockImg().getImage().getHeight());
-                        block.setBlockPos(pos);
-                        block.setAffectBlockTotal(true);
-                        block.setPlayerPlaced(true);
-                        global.getCurrent().getCurrentVerse().addVerseBlock(block);
-                    }
-                //}
                 buttonPressed = false;
             }
         }
@@ -88,13 +89,47 @@ public class UpdateBlocks {
 			for (int i=0; i<global.getCurrent().getCurrentVerse().getVerseBlocks().size(); i++){
 				Block block = global.getCurrent().getCurrentVerse().getVerseBlocks().get(i);
 				if (block.getBlockPos().intersects(mousePos)){
-					global.getCurrent().getCurrentVerse().getVerseBlocks().remove(block);
-					break;
+					if (Tools.getDistance(block.getBlockPos(), global.getCurrent().getCurrentPlayer(global.getCurrent()).getEntityPos())<blockPlaceDistance){
+						if (block.getBlockImg().getName().contains("wood")){
+							global.getCurrent().setCurrentBlockType(block);
+							global.getCurrent().getCurrentVerse().getVerseBlocks().remove(block);
+							break;
+						}
+					}
 				}
 			}
 		}
 		
 		prevInput=input;
+	}
+	
+	public static void updateWoodBlocks(Global global){
+		
+		if (prevMilli<=0) prevMilli = System.currentTimeMillis();
+		
+		if ((System.currentTimeMillis()-prevMilli)>=blockFallSpeed){
+			ArrayList<Block> blocks = global.getCurrent().getCurrentVerse().getVerseBlocks();
+			for (int i=0; i<blocks.size(); i++){
+				Block block = blocks.get(i);
+				if (block.getBlockImg().getName().contains("wood")){
+					//Block Falling
+					int x = (int) block.getBlockPos().getX();
+					int y = (int) block.getBlockPos().getY();
+					block.setBlockY(y += 1);
+					
+					//Check Block Collision
+					if (processBlockCollisions(block, global)){
+						//Halt falling if collision detected
+						if (!returnBlock.getBlockImg().getName().contains("btn")) block.setBlockY(y -= 1);
+						//Check if wood block landed on button
+						else if (returnBlock.getBlockY()-10==block.getBlockY()){
+							block.setBlockY(y -= 1);
+						}
+					}
+				}
+			}
+			prevMilli = System.currentTimeMillis();
+		}
 	}
 	
 	public static Boolean processAllCollisions(Input input, Global global)
@@ -117,6 +152,36 @@ public class UpdateBlocks {
         	Entity ent = ents.get(i);
             if (ent.getEntityPos().intersects(mousePos)){
                 return true;
+            }
+        }
+        return false;
+    }
+	public static Boolean processBlockCollisions(Block block, Global global)
+    {
+		ArrayList<Block> blocks = global.getCurrent().getCurrentVerse().getVerseBlocks();
+
+        for (int i=0; i<blocks.size(); i++){
+        	Block block2 = blocks.get(i);
+        	if (block2!=block){
+	            if (block2.getBlockPos().intersects(block.getBlockPos())){
+	            	returnBlock = block2;
+		            return true;
+	            }
+        	}
+        }
+        return false;
+    }
+	public static Boolean processEntCollisions(Block block, Global global)
+    {
+		ArrayList<Entity> ents = new ArrayList<Entity>();
+		ents.addAll(global.getCurrent().getCurrentVerse().getVerseEntities());
+		ents.add(global.getCurrent().getCurrentPlayer(global.getCurrent()));
+
+        for (int i=0; i<ents.size(); i++){
+        	Entity ent = ents.get(i);
+            if (ent.getEntityPos().intersects(block.getBlockPos())){
+            	returnEnt = ent;
+	            return true;
             }
         }
         return false;

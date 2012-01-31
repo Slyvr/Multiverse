@@ -16,9 +16,9 @@ public class RenderMenu {
 			for (int i=0; i<currentMenu.getMenuItems().size(); i++){
 				MenuItem item = currentMenu.getMenuItems().get(i);
 				//item.getImg().getImage().draw(item.getX(),item.getY());
-				if (item.getImg()!=null) item.getImg().getImage().draw(item.getPosition().getX(),item.getPosition().getY());
+				if (item.getImg()!=null) item.getImg().getImage().draw(item.getPosition().getX(),item.getPosition().getY(), item.getPosition().getWidth(),item.getPosition().getHeight());
 				else if (item.getSheet() != null){
-					item.getSheet().getSheet().getSubImage(item.getSubImgX(), item.getSubImgY()).draw(item.getPosition().getX(),item.getPosition().getY());
+					item.getSheet().getSheet().getSubImage(item.getSubImgX(), item.getSubImgY()).draw(item.getPosition().getX(),item.getPosition().getY(), item.getPosition().getWidth(), item.getPosition().getHeight());
 				}
 				else if (item.getText()!= null){
 					g.drawString(item.getText(), item.getPosition().getX(), item.getPosition().getY());

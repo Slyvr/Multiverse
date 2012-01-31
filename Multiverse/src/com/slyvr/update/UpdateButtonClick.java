@@ -2,13 +2,13 @@ package com.slyvr.update;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
-import com.slyvr.tools.Tools;
+import com.slyvr.init.InitLevels;
+import com.slyvr.init.levels.*;
 
 public class UpdateButtonClick {
 
@@ -78,10 +78,19 @@ public class UpdateButtonClick {
 							global.getSoundByName("cursor1").getSfx().play();
 							break;
 						}
+						if (item.getName().equals("btn_resume")){
+							if (global.getCurrent().getCurrentLevel().getLevelId()!=0)
+							global.getCurrent().setMenu(global.getMenuByName("game"));
+							break;
+						}
 						if (item.getName().equals("btn_newgame")){
 							global.getCurrent().setMenu(global.getMenuByName("game"));
+							if (global.getLevels().size()>1){
+								InitLevels.init(global);
+							}
+							global.getLevels().add(InitLevel1.loadLevel1(global));
 							global.getCurrent().setCurrentLevel(global.getLevels().get(1));
-							global.getCurrent().setCurrentVerse(global.getLevels().get(1).getLevelVerses().get(0));
+							global.getCurrent().setCurrentVerse(global.getCurrent().getCurrentLevel().getLevelVerses().get(0));
 							UpdatePlayer.respawnPlayer(global);
 							break;
 						}

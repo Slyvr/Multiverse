@@ -7,7 +7,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
-import com.slyvr.tools.Tools;
 
 public class LevelTools {
 	
@@ -18,7 +17,7 @@ public class LevelTools {
         ArrayList<Block> blocks = new ArrayList<Block>();
 
         //Each Block
-        for (int y = 0; y < 660; y+=30)
+        for (int y = 30; y < 660; y+=30)
         {
             for (int x = 0; x < 990; x+=30)
             {
@@ -26,7 +25,6 @@ public class LevelTools {
             	
                 if (colorA.getRed() == 255 && colorA.getGreen() == 201 && colorA.getBlue() == 14)
                 {
-                    //Portal Block
                     Block block = new Block(global.getBlockByTextureName("block_portal"));
                     block.setBlockPos(new Rectangle(x,y,30,30));
                     block.setRemovable(false);
@@ -34,7 +32,6 @@ public class LevelTools {
                 }
                 else if (colorA.getRed()== 112 && colorA.getGreen() == 146 && colorA.getBlue() == 190)
                 {
-                    //Respawn Block
                     Block block = new Block(global.getBlockByTextureName("block_respawn"));
                     block.setBlockPos(new Rectangle(x, y, 30, 30));
                     block.setRemovable(false);
@@ -42,32 +39,49 @@ public class LevelTools {
                 }
                 else if (colorA.getRed() == 185 && colorA.getGreen() == 122 && colorA.getBlue() == 87)
                 {
-                    //Dirt Block
-                    Block block = new Block(global.getBlockByTextureName("block_grass"));
+                    Block block = new Block(global.getBlockByTextureName("block_wood"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 255 && colorA.getGreen() == 174 && colorA.getBlue() == 201)
+                {
+                    Block block = new Block(global.getBlockByTextureName("block_btnUp"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 153 && colorA.getGreen() == 217 && colorA.getBlue() == 234)
+                {
+                    Block block = new Block(global.getBlockByTextureName("block_door"));
                     block.setBlockPos(new Rectangle(x, y, 30, 30));
                     block.setRemovable(removable);
                     blocks.add(block);
                 }
                 else if (colorA.getRed() == 195 && colorA.getGreen() == 195 && colorA.getBlue() == 195)
                 {
-                    //Stone Block
                     Block block = new Block(global.getBlockByTextureName("block_tech1"));
                     block.setBlockPos(new Rectangle(x, y, 30, 30));
                     block.setRemovable(removable);
                     blocks.add(block);
                 }
-                else if (colorA.getRed() == 136 && colorA.getGreen() == 0 && colorA.getBlue() == 21)
+                else if (colorA.getRed() == 127 && colorA.getGreen() == 127 && colorA.getBlue() == 127)
                 {
-                    //Tech Block
                     Block block = new Block(global.getBlockByTextureName("block_tech2"));
                     block.setBlockPos(new Rectangle(x, y, 30, 30));
                     block.setRemovable(removable);
                     blocks.add(block);
                 }
-                else if (colorA.getRed() == 34 && colorA.getGreen() == 177 && colorA.getBlue() == 76)
+                else if (colorA.getRed() == 54 && colorA.getGreen() == 54 && colorA.getBlue() == 54)
                 {
-                    //Grass Block
                     Block block = new Block(global.getBlockByTextureName("block_tech3"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 216 && colorA.getGreen() == 216 && colorA.getBlue() == 216)
+                {
+                    Block block = new Block(global.getBlockByTextureName("block_doorway"));
                     block.setBlockPos(new Rectangle(x, y, 30, 30));
                     block.setRemovable(removable);
                     blocks.add(block);
@@ -91,7 +105,7 @@ public class LevelTools {
             {
                 //Each Block's Pixels
                 Color colorA = gridTex.getColor(x+5, y+5);
-                if (colorA.getRed() == 127 && colorA.getGreen() == 127 && colorA.getBlue() == 127)
+                if (colorA.getRed() == 136 && colorA.getGreen() == 0 && colorA.getBlue() == 21)
                 {
                     Entity ent = new Entity(global.getEntityByName("ent_block_rock"));
                     ent.setEntityPos(new Rectangle(x,y,30,30));

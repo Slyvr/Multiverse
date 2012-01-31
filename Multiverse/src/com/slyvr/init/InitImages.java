@@ -47,7 +47,8 @@ public class InitImages {
 			
 			//Grids
 			images.add(new Img(new Image("resources/imgs/grids/grid_levelMain.png"),"grid_levelMain"));
-			images.add(new Img(new Image("resources/imgs/grids/grid_level0.png"),"grid_level0"));
+			images.add(new Img(new Image("resources/imgs/grids/grid_level1.png"),"grid_level1"));
+			images.add(new Img(new Image("resources/imgs/grids/grid_level2.png"),"grid_level2"));
 			
 		}catch(SlickException e){
 			e.printStackTrace();

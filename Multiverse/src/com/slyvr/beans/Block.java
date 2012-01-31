@@ -73,6 +73,24 @@ public class Block {
     {
         blockPos = pos;
     }
+  //X
+    public int getBlockX()
+    {
+        return (int)blockPos.getX();
+    }
+    public void setBlockX(int x)
+    {
+        blockPos.setX(x);
+    }
+    //Y
+    public int getBlockY()
+    {
+        return (int)blockPos.getY();
+    }
+    public void setBlockY(int y)
+    {
+        blockPos.setY(y);
+    }
     //Texture
     public Img getBlockImg()
     {

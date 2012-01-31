@@ -14,7 +14,7 @@ public class RenderBlocks {
 			if (block!=null){
 				if (block.getBlockImg()!=null){
 					if (block.getBlockImg().getImage()!=null){
-						block.getBlockImg().getImage().draw(block.getBlockPos().getX(),block.getBlockPos().getY());
+						block.getBlockImg().getImage().draw(block.getBlockPos().getX(),block.getBlockPos().getY(), block.getBlockPos().getWidth(),block.getBlockPos().getHeight());
 					}
 				}
 			}
@@ -25,7 +25,7 @@ public class RenderBlocks {
 			if (block!=null){
 				if (block.getBlockImg()!=null){
 					if (block.getBlockImg().getImage()!=null){
-						block.getBlockImg().getImage().draw(block.getBlockPos().getX(),block.getBlockPos().getY());
+						block.getBlockImg().getImage().draw(block.getBlockPos().getX(),block.getBlockPos().getY(), block.getBlockPos().getWidth(),block.getBlockPos().getHeight());
 					}
 				}
 			}

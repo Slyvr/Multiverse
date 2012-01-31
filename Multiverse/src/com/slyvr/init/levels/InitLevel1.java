@@ -8,9 +8,9 @@ import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
 
-public class InitLevel0 {
+public class InitLevel1 {
 	
-	public static Level loadLevel0(Global global)
+	public static Level loadLevel1(Global global)
     {     
         //Verse1
         Verse verse = new Verse();
@@ -29,7 +29,7 @@ public class InitLevel0 {
         }
         verse.setVerseBackground(background);
 
-        Image gridTex = global.getImageByName("grid_level0").getImage();
+        Image gridTex = global.getImageByName("grid_level2").getImage();
         ArrayList<Block> verseBlocks = LevelTools.generateLevelBlocks(global, gridTex, false);
         verse.setVerseBlocks(verseBlocks);
 
@@ -39,7 +39,7 @@ public class InitLevel0 {
 
         //Level
         Level level = new Level();
-        level.setLevelId(0);
+        level.setLevelId(1);
         //Add verses
         level.addLevelVerse(verse);
         //Add entities

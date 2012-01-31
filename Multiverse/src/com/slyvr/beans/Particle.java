@@ -1,7 +1,6 @@
 package com.slyvr.beans;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Particle {

@@ -1,7 +1,6 @@
 package com.slyvr.beans;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Global {
 
