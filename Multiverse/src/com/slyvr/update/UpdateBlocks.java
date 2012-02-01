@@ -74,6 +74,7 @@ public class UpdateBlocks {
 		                    block.setPlayerPlaced(true);
 		                    global.getCurrent().getCurrentVerse().addVerseBlock(block);
 		                    global.getCurrent().setCurrentBlockType(null);
+		                    global.getMenuByName("game").getMenuItemByName("invblock").setImg(null);
 	                    }
                 	}
                 }
@@ -93,6 +94,7 @@ public class UpdateBlocks {
 						if (block.getBlockImg().getName().contains("wood")){
 							global.getCurrent().setCurrentBlockType(block);
 							global.getCurrent().getCurrentVerse().getVerseBlocks().remove(block);
+							global.getMenuByName("game").getMenuItemByName("invblock").setImg(block.getBlockImg());
 							break;
 						}
 					}
