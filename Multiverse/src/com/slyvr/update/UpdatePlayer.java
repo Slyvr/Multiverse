@@ -40,8 +40,8 @@ public class UpdatePlayer {
         	//Move Left
 			if (input.isKeyDown(Keyboard.KEY_A)){
 				player.setEntityX(x -= 1);
-	            if (jumping) player.setEntityImg(global.getImageByName("player_jet_jump_left"));
-	            else player.setEntityImg(global.getImageByName("player_jet_left"));
+	            if (jumping) player.setEntityImg(global.getImageByName("ent_player2-1"));
+	            else player.setEntityImg(global.getImageByName("ent_player1-1"));
 	            if (processBlockCollisions(player, blockList)||player.getEntityX()<0){
 	                player.setEntityX(x += 1);
 	            }
@@ -52,8 +52,8 @@ public class UpdatePlayer {
 			//Move Right
 			else if (input.isKeyDown(Keyboard.KEY_D)){
 				player.setEntityX(x += 1);
-	            if (jumping) player.setEntityImg(global.getImageByName("player_jet_jump_right"));
-	            else player.setEntityImg(global.getImageByName("player_jet_right"));
+	            if (jumping) player.setEntityImg(global.getImageByName("ent_player2"));
+	            else player.setEntityImg(global.getImageByName("ent_player1"));
 	            if (processBlockCollisions(player, blockList)||player.getEntityX()>=960){
 	                player.setEntityX(x -= 1);
 	            }
@@ -67,12 +67,12 @@ public class UpdatePlayer {
                 jumping = true;
             }
             if (input.isKeyDown(Keyboard.KEY_SPACE) && jumping){
-                if (player.getEntityImg().equals(global.getImageByName("player_jet_right"))) player.setEntityImg(global.getImageByName("player_jet_jump_right"));
-                else if (player.getEntityImg().equals(global.getImageByName("player_jet_left"))) player.setEntityImg(global.getImageByName("player_jet_jump_left"));
+                if (player.getEntityImg().equals(global.getImageByName("ent_player1"))) player.setEntityImg(global.getImageByName("ent_player2"));
+                else if (player.getEntityImg().equals(global.getImageByName("ent_player1-1"))) player.setEntityImg(global.getImageByName("ent_player2-1"));
             }
             else{
-                if (player.getEntityImg().equals(global.getImageByName("player_jet_jump_right"))) player.setEntityImg(global.getImageByName("player_jet_right"));
-                else if (player.getEntityImg().equals(global.getImageByName("player_jet_jump_left"))) player.setEntityImg(global.getImageByName("player_jet_left"));
+                if (player.getEntityImg().equals(global.getImageByName("ent_player2"))) player.setEntityImg(global.getImageByName("ent_player1"));
+                else if (player.getEntityImg().equals(global.getImageByName("ent_player2-1"))) player.setEntityImg(global.getImageByName("ent_player1-1"));
             }
             if (jumping){
                 if (maxY < player.getEntityY() && prevInput.isKeyDown(Keyboard.KEY_SPACE)) jumping = true;

@@ -57,25 +57,9 @@ public class Verse {
         blocks = blockList;
     }
     //Blocks
-    public Block getVerseBlockById(int id)
-    {
-    	for (int i=0; i<blocks.size(); i++){
-    		if (blocks.get(i).getBlockId()==id) return blocks.get(i);
-    	}
-        return null;
-    }
     public Block getVerseBlockRecentlyPlaced()
     {
         return blocks.get(blocks.size());
-    }
-    public void setVerseBlockById(int id, Block paramblock)
-    {
-    	for (int i=0; i<blocks.size(); i++){
-    		if (blocks.get(i).getBlockId()==id) {
-    			blocks.remove(blocks.get(i));
-    			blocks.add(paramblock);
-    		}
-    	}
     }
     //Entities
     public ArrayList<Entity> getVerseEntities()

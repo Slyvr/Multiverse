@@ -10,24 +10,32 @@ public class InitBlocks {
 	
 	public static void init(Global global)
     {
-		Block highlight = new Block(0,1,new Rectangle(0,0,30,30),global.getImageByName("block_highlight"),false);
-        Block tech1 = new Block(1, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech1"), true);
-        Block tech1_1 = new Block(2, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech1-1"), true);
-        Block tech2 = new Block(3, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech2"), true);
-        Block tech3 = new Block(4, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech3"), true);
-        Block grass = new Block(5, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_grass"), true);
-        Block wood = new Block(6, 1, new Rectangle(0,0,30,30), global.getImageByName("block_wood"),true);
-        Block respawn = new Block(7, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_respawn"), false);
-        Block portal = new Block(8, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_portal"), false);
-        Block btn = new Block(9, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_btnUp"), false);
-        Block door = new Block(10, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_door"), false);
-        Block doorway = new Block(11, 1, new Rectangle(0, 0, 30, 30), global.getImageByName("block_doorway"), false);
+		Block highlight = new Block(new Rectangle(0,0,30,30),global.getImageByName("block_highlight"),false);
+        Block tech1 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech1"), true);
+        Block tech1_1 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech1-1"), true);
+        Block tech2_1 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech2-1"), true);
+        Block tech2_2 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech2-2"), true);
+        Block tech2_3 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech2-3"), true);
+        Block tech2_4 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech2-4"), true);
+        Block tech3 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_tech3"), true);
+        Block grass = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_grass"), true);
+        Block wood = new Block(new Rectangle(0,0,30,30), global.getImageByName("block_wood"),true);
+        Block respawn = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_respawn"), false);
+        Block portal = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_portal"), false);
+        Block btn = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_btnUp"), false);
+        Block door = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_door"), false);
+        Block doorway = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_doorway"), false);
+        Block lever1 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_lever1"), false);
+        Block lever2 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_lever2"), false);
 
         ArrayList<Block> blocks = new ArrayList<Block>();
         blocks.add(highlight);
         blocks.add(tech1);
         blocks.add(tech1_1);
-        blocks.add(tech2);
+        blocks.add(tech2_1);
+        blocks.add(tech2_2);
+        blocks.add(tech2_3);
+        blocks.add(tech2_4);
         blocks.add(tech3);
         blocks.add(grass);
         blocks.add(wood);
@@ -36,6 +44,8 @@ public class InitBlocks {
         blocks.add(btn);
         blocks.add(door);
         blocks.add(doorway);
+        blocks.add(lever1);
+        blocks.add(lever2);
         global.setBlocks(blocks);
     }
 }

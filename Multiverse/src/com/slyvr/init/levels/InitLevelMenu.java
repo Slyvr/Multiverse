@@ -36,7 +36,7 @@ public class InitLevelMenu {
         ArrayList<Entity> verseEnts = LevelTools.generateLevelEntities(global, global.getImageByName("grid_levelMain").getImage());
         verse.setVerseEntities(verseEnts);
 
-        Entity player = new Entity(global.getEntityByName("Player"));
+        Entity player = new Entity(global.getEntityByName("ent_player"));
         player.setEntityPos(new Rectangle(150,270,30,30));
 
         Level level = new Level();

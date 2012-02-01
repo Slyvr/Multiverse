@@ -27,7 +27,10 @@ public class InitImages {
 			images.add(new Img(new Image("resources/imgs/blocks/block_wood.png"),"block_wood"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech1.png"),"block_tech1"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech1-1.png"),"block_tech1-1"));
-			images.add(new Img(new Image("resources/imgs/blocks/block_tech2.png"),"block_tech2"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-1.png"),"block_tech2-1"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-2.png"),"block_tech2-2"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-3.png"),"block_tech2-3"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-4.png"),"block_tech2-4"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech3.png"),"block_tech3"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_portal.png"),"block_portal"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_respawn.png"),"block_respawn"));
@@ -36,12 +39,21 @@ public class InitImages {
 			images.add(new Img(new Image("resources/imgs/blocks/block_btnUp.png"),"block_btnUp"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_door.png"),"block_door"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_doorway.png"),"block_doorway"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_lever1.png"),"block_lever1"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_lever2.png"),"block_lever2"));
 			
 			//Entities
 			images.add(new Img(new Image("resources/imgs/entities/player/player_jet_jump_left.png"),"player_jet_jump_left"));
 			images.add(new Img(new Image("resources/imgs/entities/player/player_jet_jump_right.png"),"player_jet_jump_right"));
 			images.add(new Img(new Image("resources/imgs/entities/player/player_jet_left.png"),"player_jet_left"));
 			images.add(new Img(new Image("resources/imgs/entities/player/player_jet_right.png"),"player_jet_right"));
+			//right
+			images.add(new Img(new Image("resources/imgs/entities/ent_player1.png"),"ent_player1"));
+			images.add(new Img(new Image("resources/imgs/entities/ent_player2.png"),"ent_player2"));
+			//left
+			images.add(new Img(new Image("resources/imgs/entities/ent_player1-1.png"),"ent_player1-1"));
+			images.add(new Img(new Image("resources/imgs/entities/ent_player2-1.png"),"ent_player2-1"));
+			//enemies
 			images.add(new Img(new Image("resources/imgs/entities/ent_block_rock.png"),"ent_block_rock"));
 			images.add(new Img(new Image("resources/imgs/entities/ent_floaty.png"),"ent_floaty"));
 			
