@@ -30,15 +30,22 @@ public class UpdateBlocks {
 		 * -if in valid location, remove block_highlight, create new Block in mousePosition
 		 */
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)){
+			
 			//Display red outline box
-            if (global.getCurrent().getCurrentVerse().getVerseBlockById(0) == null)
+			Boolean highlightOn=false;
+			for(int i=0; i<global.getCurrent().getCurrentVerse().getVerseBlocks().size(); i++){
+				Block block = global.getCurrent().getCurrentVerse().getVerseBlocks().get(i);
+				if (block.getBlockImg().getName().equals("block_highlight")){
+					highlightOn = true;
+					break;
+				}
+			}
+            if (!highlightOn)
             {
                 //If no red outline exists yet, create it.
                 Img blankblock = global.getImageByName("block_highlight");
                 Rectangle pos = new Rectangle(input.getMouseX(), input.getMouseY(), blankblock.getImage().getWidth(), blankblock.getImage().getHeight());
                 Block blank = new Block();
-                blank.setBlockId(0);
-                blank.setBlockType(1);
                 blank.setBlockPos(pos);
                 blank.setBlockImg(blankblock);
                 global.getCurrent().getCurrentVerse().addVerseBlock(blank);
@@ -47,7 +54,14 @@ public class UpdateBlocks {
             else
             {
                 //If red outline already exists, change its position
-                Block blank = global.getCurrent().getCurrentVerse().getVerseBlockById(0);
+            	Block blank = null;
+            	for(int i=0; i<global.getCurrent().getCurrentVerse().getVerseBlocks().size(); i++){
+    				Block block = global.getCurrent().getCurrentVerse().getVerseBlocks().get(i);
+    				if (block.getBlockImg().getName().equals("block_highlight")){
+    					blank = block;
+    					break;
+    				}
+    			}
                 Rectangle pos = blank.getBlockPos();
                 pos.setX(input.getMouseX());
                 pos.setY(input.getMouseY());
@@ -57,7 +71,14 @@ public class UpdateBlocks {
 		//Remove and block_highlight, and place new block
 		else if (!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
             //remove red outline
-            Block blank = global.getCurrent().getCurrentVerse().getVerseBlockById(0);
+            Block blank = null;
+        	for(int i=0; i<global.getCurrent().getCurrentVerse().getVerseBlocks().size(); i++){
+				Block block = global.getCurrent().getCurrentVerse().getVerseBlocks().get(i);
+				if (block.getBlockImg().getName().equals("block_highlight")){
+					blank = block;
+					break;
+				}
+			}
             global.getCurrent().getCurrentVerse().removeVerseBlock(blank);
             //place a new block
             if (buttonPressed)

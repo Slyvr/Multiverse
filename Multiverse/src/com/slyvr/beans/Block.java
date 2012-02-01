@@ -4,8 +4,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Block {
-	private int blockId;
-    private int blockType;
     private Rectangle blockPos;
     private Img blockImg;
     private Boolean removable;
@@ -16,8 +14,6 @@ public class Block {
     //Constructor
     public Block()
     {
-        blockId = 0;
-        blockType = 0;
         blockPos = new Rectangle(0, 0, 0, 0);
         blockImg = null;
         removable = true;
@@ -27,8 +23,6 @@ public class Block {
     }
     public Block(Block block)
     {
-        this.blockId = block.getBlockId();
-        this.blockType = block.getBlockType();
         this.blockPos = block.getBlockPos();
         this.blockImg = block.getBlockImg();
         this.removable = block.getRemovable();
@@ -36,33 +30,13 @@ public class Block {
         this.playerPlaced = block.getPlayerPlaced();
         this.color = block.getColor();
     }
-    public Block(int id, int type, Rectangle pos, Img img, Boolean rem)
+    public Block(Rectangle pos, Img img, Boolean rem)
     {
-        blockId = id;
-        blockType = type;
         blockPos = pos;
         blockImg = img;
         removable = rem;
         affectBlockTotal = false;
         color = Color.white;
-    }
-    //Id
-    public int getBlockId()
-    {
-        return blockId;
-    }
-    public void setBlockId(int id)
-    {
-        blockId = id;
-    }
-    //Type
-    public int getBlockType()
-    {
-        return blockType;
-    }
-    public void setBlockType(int type)
-    {
-        blockType = type;
     }
     //Pos
     public Rectangle getBlockPos()

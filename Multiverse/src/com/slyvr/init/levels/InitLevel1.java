@@ -34,7 +34,7 @@ public class InitLevel1 {
         verse.setVerseBlocks(verseBlocks);
 
         //Add Entities
-        Entity player = new Entity(global.getEntityByName("Player"));
+        Entity player = new Entity(global.getEntityByName("ent_player"));
         player.setEntityPos(new Rectangle(60,60,30,30));
 
         //Level

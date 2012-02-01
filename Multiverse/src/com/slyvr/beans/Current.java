@@ -62,7 +62,7 @@ public class Current {
     {
         ArrayList<Entity> entities = current.getCurrentLevel().getLevelEntities();
         for (int i=0; i<entities.size(); i++){
-        	if (entities.get(i).getEntityName().equals("Player")) return entities.get(i);
+        	if (entities.get(i).getEntityName().equals("ent_player")) return entities.get(i);
         }
         return null;
     }
