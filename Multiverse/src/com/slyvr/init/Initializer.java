@@ -21,7 +21,7 @@ public class Initializer {
 		System.out.println("Loading menus...");
 		InitMenus.init(global);
 		System.out.println("Loading music...");
-		InitMusic.init(global);
+		//InitMusic.init(global);
 		System.out.println("Loading sounds...");
 		InitSounds.init(global);
 		System.out.println("Loading blocks...");
