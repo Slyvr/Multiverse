@@ -143,10 +143,24 @@ public class UpdateBlocks {
 					//Check Block Collision
 					if (processBlockCollisions(block, global)){
 						//Halt falling if collision detected
-						if (!returnBlock.getBlockImg().getName().contains("btn")) block.setBlockY(y -= 1);
-						//Check if wood block landed on button
-						else if (returnBlock.getBlockY()-10==block.getBlockY()){
+						if (!returnBlock.getBlockImg().getName().contains("btn"))
+						{
 							block.setBlockY(y -= 1);
+						}
+						//Check if wood block landed on button
+						else if (returnBlock.getBlockY()-10==block.getBlockY())
+						{
+							int btnUpY = (int) returnBlock.getBlockPos().getY();
+							//add button down state
+		                    Block btn_down = new Block(global.getBlockByTextureName("block_btnDown"));
+		                    btn_down.setBlockPos(returnBlock.getBlockPos());
+		                    global.getCurrent().getCurrentVerse().addVerseBlock(btn_down);
+					                    
+		                    //remove button up
+							global.getCurrent().getCurrentVerse().getVerseBlocks().remove(returnBlock);
+							
+							block.setBlockY(btnUpY -= 1);
+							break;
 						}
 					}
 				}

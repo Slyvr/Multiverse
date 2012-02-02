@@ -23,6 +23,7 @@ public class InitBlocks {
         Block respawn = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_respawn"), false);
         Block portal = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_portal"), false);
         Block btn = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_btnUp"), false);
+        Block btn_down = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_btnDown"), false);
         Block door = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_door"), false);
         Block doorway = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_doorway"), false);
         Block lever1 = new Block(new Rectangle(0, 0, 30, 30), global.getImageByName("block_lever1"), false);
@@ -42,6 +43,7 @@ public class InitBlocks {
         blocks.add(respawn);
         blocks.add(portal);
         blocks.add(btn);
+        blocks.add(btn_down);
         blocks.add(door);
         blocks.add(doorway);
         blocks.add(lever1);
