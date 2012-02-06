@@ -49,7 +49,9 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("logo",global.getImageByName("logo"),new Rectangle(250,100,400,150)));
+			//menuItems.add(new MenuItem("logo",global.getImageByName("logo"),new Rectangle(250,100,400,150)));
+			menuItems.add(new MenuItem("logo",global.getAnimationByName("logoAni"),new Rectangle(250,100,400,150)));
+			//menuItems.get(0).getAnimation().getAnimation().start();
 			menuItems.add(new MenuItem("btn_play",global.getSheetByName("btns"),0,1,new Rectangle(400,280,width,height)));
 			//menuItems.add(new MenuItem("btn_multi",global.getSheetByName("btns2"),0,4,new Rectangle(500,280,width,height)));
 			menuItems.add(new MenuItem("btn_options",global.getSheetByName("btns"),0,2,new Rectangle(400,360,width,height)));

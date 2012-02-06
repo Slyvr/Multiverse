@@ -16,134 +16,149 @@ public class UpdateButtonClick {
 
 	static Input prevInput;
 	static Menu prevMenu;
+	static Boolean buttonPressed;
+	static MenuItem pressedItem;
 	
 	public static void update(GameContainer container, Global global) throws SlickException{
 		Input input = container.getInput();
 		if (prevInput==null) prevInput = input;
+		if (buttonPressed==null) buttonPressed=false;
+		
 		//Check current menu button clicks
-		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && !prevInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
 			Color[][] mouseColor = new Color[5][5];
 			for (int x=0; x<5; x++)
 				for (int y=0; y<5; y++)
 					mouseColor[x][y] = new Color(1,1,1);
 			Rectangle mousePosition = new Rectangle(input.getMouseX(),input.getMouseY(),5,5);
+			
+			//Check which menuItem was clicked
 			for(int i=0; i<global.getCurrent().getMenu().getMenuItems().size(); i++){
 				MenuItem item = global.getCurrent().getMenu().getMenuItems().get(i);
+				
 				//Helps performance
 				if (item.getPosition().intersects(mousePosition)){
-					//Collision found, do per pixel collision detect
 					
+					//Collision found, do per pixel collision detect
 					Color[][] dataB = null;
 					if (item.getImg()!=null) dataB = Tools.getColorData(item.getImg().getImage());
 					else if (item.getSheet()!=null) dataB = Tools.getColorData(item.getSheet().getSheet().getSubImage(item.getSubImgX(), item.getSubImgY()));
-					
 					if (Tools.intersectPixels(mousePosition, mouseColor, item.getPosition(), dataB)){
-						if (item.getName().equals("btn_exit")){
-							container.exit();
-							break;
-						}
-						if (item.getName().equals("btn_options")){
-							prevMenu = global.getCurrent().getMenu();
-							global.getCurrent().setMenu(global.getMenuByName("options"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_changeVol")){
-							float vol = global.getCurrent().getSong().getVolume();
-							if (vol>=1) global.getCurrent().getSong().setVolume(0);
-							else global.getCurrent().getSong().setVolume(vol+=0.2);
-							global.getMenuByName("options").getMenuItemByName("txt_volume").setText("Volume: "+global.getCurrent().getSong().getVolume());
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_changeFullScreen")){
-							if (container.isFullscreen()){
-								container.setFullscreen(false);
-								global.getMenuByName("options").getMenuItemByName("txt_fullscreen").setText("Windowed");
-							}
-							else {
-								container.setFullscreen(true);
-								global.getMenuByName("options").getMenuItemByName("txt_fullscreen").setText("Fullscreen");
-							}
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_changeControls")){
-							prevMenu = global.getCurrent().getMenu();
-							global.getCurrent().setMenu(global.getMenuByName("controls"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_changeLeft")){
-							prevMenu = global.getCurrent().getMenu();
-							global.getMenuByName("controlselect").getMenuItemByName("txt_key").setText("Left");
-							global.getCurrent().setMenu(global.getMenuByName("controlselect"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_changeRight")){
-							prevMenu = global.getCurrent().getMenu();
-							global.getMenuByName("controlselect").getMenuItemByName("txt_key").setText("Right");
-							global.getCurrent().setMenu(global.getMenuByName("controlselect"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_changeJump")){
-							prevMenu = global.getCurrent().getMenu();
-							global.getMenuByName("controlselect").getMenuItemByName("txt_key").setText("Jump");
-							global.getCurrent().setMenu(global.getMenuByName("controlselect"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_back")){
-							getBackMenu(global);
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_play")){
-							prevMenu = global.getCurrent().getMenu();
-							global.getCurrent().setMenu(global.getMenuByName("play"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_multi")){
-							prevMenu = global.getCurrent().getMenu();
-							global.getCurrent().setMenu(global.getMenuByName("multi"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_resume")){
-							if (global.getCurrent().getCurrentLevel().getLevelId()!=0)
-							global.getCurrent().setMenu(global.getMenuByName("game"));
-							break;
-						}
-						if (item.getName().equals("btn_newgame")){
-							global.getCurrent().setMenu(global.getMenuByName("game"));
-							if (global.getLevels().size()>1){
-								InitLevels.init(global);
-							}
-							global.getLevels().add(InitLevel1.loadLevel1(global));
-							global.getCurrent().setCurrentLevel(global.getLevels().get(1));
-							global.getCurrent().setCurrentVerse(global.getCurrent().getCurrentLevel().getLevelVerses().get(0));
-							UpdatePlayer.respawnPlayer(global);
-							break;
-						}
-						if (item.getName().equals("btn_save")){
-							global.getCurrent().setMenu(global.getMenuByName("save"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_load")){
-							global.getCurrent().setMenu(global.getMenuByName("load"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
-						if (item.getName().equals("btn_credits")){
-							global.getCurrent().setMenu(global.getMenuByName("credits"));
-							global.getSoundByName("cursor1").getSfx().play();
-							break;
-						}
+						//Button was clicked, activate 'down' image and set buttonPressed
+						if (item.getSubImgX()==0) item.setSubImgX(1);
+						pressedItem = item;
+						buttonPressed=true;
+						break;
 					}
+				}
+			}
+		}
+		//Button is pressed, but wait until mouse is unclicked until action is executed
+		if (!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && buttonPressed){
+			//Return button to original state
+			if (pressedItem.getSubImgX()==1) pressedItem.setSubImgX(0);
+			buttonPressed=false;
+			
+			//Check if mouse is still colliding with button
+			Color[][] mouseColor = new Color[5][5];
+			for (int x=0; x<5; x++)
+				for (int y=0; y<5; y++)
+					mouseColor[x][y] = new Color(1,1,1);
+			Rectangle mousePosition = new Rectangle(input.getMouseX(),input.getMouseY(),5,5);
+			Color[][] dataB = null;
+			if (pressedItem.getImg()!=null) dataB = Tools.getColorData(pressedItem.getImg().getImage());
+			else if (pressedItem.getSheet()!=null) dataB = Tools.getColorData(pressedItem.getSheet().getSheet().getSubImage(pressedItem.getSubImgX(), pressedItem.getSubImgY()));
+			
+			if (Tools.intersectPixels(mousePosition, mouseColor, pressedItem.getPosition(), dataB)){
+				//Determine which button action to take
+				if (pressedItem.getName().equals("btn_exit")){
+					container.exit();
+				}
+				if (pressedItem.getName().equals("btn_options")){
+					prevMenu = global.getCurrent().getMenu();
+					global.getCurrent().setMenu(global.getMenuByName("options"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_changeVol")){
+					float vol = global.getCurrent().getSong().getVolume();
+					if (vol>=1) global.getCurrent().getSong().setVolume(0);
+					else global.getCurrent().getSong().setVolume(vol+=0.2);
+					global.getMenuByName("options").getMenuItemByName("txt_volume").setText("Volume: "+global.getCurrent().getSong().getVolume());
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_changeFullScreen")){
+					if (container.isFullscreen()){
+						container.setFullscreen(false);
+						global.getMenuByName("options").getMenuItemByName("txt_fullscreen").setText("Windowed");
+					}
+					else {
+						container.setFullscreen(true);
+						global.getMenuByName("options").getMenuItemByName("txt_fullscreen").setText("Fullscreen");
+					}
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_changeControls")){
+					prevMenu = global.getCurrent().getMenu();
+					global.getCurrent().setMenu(global.getMenuByName("controls"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_changeLeft")){
+					prevMenu = global.getCurrent().getMenu();
+					global.getMenuByName("controlselect").getMenuItemByName("txt_key").setText("Left");
+					global.getCurrent().setMenu(global.getMenuByName("controlselect"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_changeRight")){
+					prevMenu = global.getCurrent().getMenu();
+					global.getMenuByName("controlselect").getMenuItemByName("txt_key").setText("Right");
+					global.getCurrent().setMenu(global.getMenuByName("controlselect"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_changeJump")){
+					prevMenu = global.getCurrent().getMenu();
+					global.getMenuByName("controlselect").getMenuItemByName("txt_key").setText("Jump");
+					global.getCurrent().setMenu(global.getMenuByName("controlselect"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_back")){
+					getBackMenu(global);
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_play")){
+					prevMenu = global.getCurrent().getMenu();
+					global.getCurrent().setMenu(global.getMenuByName("play"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_multi")){
+					prevMenu = global.getCurrent().getMenu();
+					global.getCurrent().setMenu(global.getMenuByName("multi"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_resume")){
+					if (global.getCurrent().getCurrentLevel().getLevelId()!=0)
+					global.getCurrent().setMenu(global.getMenuByName("game"));
+				}
+				if (pressedItem.getName().equals("btn_newgame")){
+					global.getCurrent().setMenu(global.getMenuByName("game"));
+					if (global.getLevels().size()>1){
+						InitLevels.init(global);
+					}
+					global.getLevels().add(InitLevel1.loadLevel1(global));
+					global.getCurrent().setCurrentLevel(global.getLevels().get(1));
+					global.getCurrent().setCurrentVerse(global.getCurrent().getCurrentLevel().getLevelVerses().get(0));
+					UpdatePlayer.respawnPlayer(global);
+				}
+				if (pressedItem.getName().equals("btn_save")){
+					global.getCurrent().setMenu(global.getMenuByName("save"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_load")){
+					global.getCurrent().setMenu(global.getMenuByName("load"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
+				if (pressedItem.getName().equals("btn_credits")){
+					global.getCurrent().setMenu(global.getMenuByName("credits"));
+					global.getSoundByName("cursor1").getSfx().play();
 				}
 			}
 		}

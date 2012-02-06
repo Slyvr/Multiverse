@@ -16,6 +16,8 @@ public class Initializer {
 		//container.setMouseGrabbed(true);
 		System.out.println("Loading images...");
 		InitImages.init(global);
+		System.out.println("Loading animations...");
+		InitAnimations.init(global);
 		System.out.println("Loading particles...");
 		InitParticles.init(global);
 		System.out.println("Loading menus...");

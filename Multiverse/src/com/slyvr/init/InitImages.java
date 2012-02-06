@@ -2,6 +2,7 @@ package com.slyvr.init;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -21,6 +22,7 @@ public class InitImages {
 			images.add(new Img(new Image("resources/imgs/inventory.png"),"inventory"));
 			sheets.add(new ImgSheet(new SpriteSheet(new Image("resources/imgs/btns.png"),193,58), "btns"));
 			sheets.add(new ImgSheet(new SpriteSheet(new Image("resources/imgs/btns2.png"),193,58), "btns2"));
+			sheets.add(new ImgSheet(new SpriteSheet(new Image("resources/imgs/logoSheet.png"),434,125), "logoSheet"));
 			
 			//Blocks
 			images.add(new Img(new Image("resources/imgs/blocks/block_grass.png"),"block_grass"));

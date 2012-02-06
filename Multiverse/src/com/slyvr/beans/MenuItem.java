@@ -10,6 +10,7 @@ public class MenuItem {
 	private ImgSheet sheet;
 	private int subImgX;
 	private int subImgY;
+	private Animate animation;
 	private Rectangle position;
 	
 	public MenuItem(String name, Img img, Rectangle position){
@@ -27,6 +28,11 @@ public class MenuItem {
 		this.sheet=sheet;
 		this.subImgX=subImgX;
 		this.subImgY=subImgY;
+		this.position=position;
+	}
+	public MenuItem(String name, Animate animation, Rectangle position){
+		this.name=name;
+		this.animation=animation;
 		this.position=position;
 	}
 	
@@ -71,6 +77,13 @@ public class MenuItem {
 	}
 	public void setSubImgY(int subImgY){
 		this.subImgY=subImgY;
+	}
+	//Animation
+	public Animate getAnimation(){
+		return animation;
+	}
+	public void setAnimation(Animate animation){
+		this.animation=animation;
 	}
 	//Position
 	public Rectangle getPosition(){

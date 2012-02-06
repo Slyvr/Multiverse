@@ -20,6 +20,10 @@ public class RenderMenu {
 				else if (item.getSheet() != null){
 					item.getSheet().getSheet().getSubImage(item.getSubImgX(), item.getSubImgY()).draw(item.getPosition().getX(),item.getPosition().getY(), item.getPosition().getWidth(), item.getPosition().getHeight());
 				}
+				else if (item.getAnimation()!=null){
+					if (item.getAnimation().getAnimation().isStopped()) item.getAnimation().getAnimation().start();
+					item.getAnimation().getAnimation().draw(item.getPosition().getX(), item.getPosition().getY());
+				}
 				else if (item.getText()!= null){
 					g.drawString(item.getText(), item.getPosition().getX(), item.getPosition().getY());
 				}

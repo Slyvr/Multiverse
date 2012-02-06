@@ -40,7 +40,7 @@ public class UpdatePlayer {
         //Player movement occurs every 5 milliseconds
         if ((System.currentTimeMillis()-prevMilli)>=player.getEntitySpeed()){
         	//Move Left
-			if (input.isKeyDown(Keyboard.KEY_A)){
+			if (input.isKeyDown(global.getOptions().getLeft())){
 				player.setEntityX(x -= 1);
 	            if (jumping) player.setEntityImg(global.getImageByName("ent_player2-1"));
 	            else player.setEntityImg(global.getImageByName("ent_player1-1"));
@@ -52,7 +52,7 @@ public class UpdatePlayer {
 	            }
 			}
 			//Move Right
-			else if (input.isKeyDown(Keyboard.KEY_D)){
+			else if (input.isKeyDown(global.getOptions().getRight())){
 				player.setEntityX(x += 1);
 	            if (jumping) player.setEntityImg(global.getImageByName("ent_player2"));
 	            else player.setEntityImg(global.getImageByName("ent_player1"));
@@ -64,11 +64,11 @@ public class UpdatePlayer {
 	            }
 			}
 			//Jump
-			if (input.isKeyDown(Keyboard.KEY_SPACE) && onGround){
+			if (input.isKeyDown(global.getOptions().getJump()) && onGround){
                 maxY = (int) (player.getEntityPos().getY() - player.getEntityJumpHeight());
                 jumping = true;
             }
-            if (input.isKeyDown(Keyboard.KEY_SPACE) && jumping){
+            if (input.isKeyDown(global.getOptions().getJump()) && jumping){
                 if (player.getEntityImg().equals(global.getImageByName("ent_player1"))) player.setEntityImg(global.getImageByName("ent_player2"));
                 else if (player.getEntityImg().equals(global.getImageByName("ent_player1-1"))) player.setEntityImg(global.getImageByName("ent_player2-1"));
             }
@@ -77,7 +77,7 @@ public class UpdatePlayer {
                 else if (player.getEntityImg().equals(global.getImageByName("ent_player2-1"))) player.setEntityImg(global.getImageByName("ent_player1-1"));
             }
             if (jumping){
-                if (maxY < player.getEntityY() && prevInput.isKeyDown(Keyboard.KEY_SPACE)) jumping = true;
+                if (maxY < player.getEntityY() && prevInput.isKeyDown(global.getOptions().getJump())) jumping = true;
                 else jumping = false;
                 if (jumping){
                     player.setEntityY(y -= player.getEntityFallSpeed() * 2);

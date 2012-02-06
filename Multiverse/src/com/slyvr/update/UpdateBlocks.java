@@ -143,9 +143,12 @@ public class UpdateBlocks {
 					//Check Block Collision
 					if (processBlockCollisions(block, global)){
 						//Halt falling if collision detected
-						if (!returnBlock.getBlockImg().getName().contains("btn")) block.setBlockY(y -= 1);
+						if (!returnBlock.getBlockImg().getName().contains("btn")&&!returnBlock.getBlockImg().getName().contains("respawn")) block.setBlockY(y -= 1);
 						//Check if wood block landed on button
-						else if (returnBlock.getBlockY()-10==block.getBlockY()){
+						else if (returnBlock.getBlockImg().getName().contains("btn") && returnBlock.getBlockY()-12==block.getBlockY()){
+							block.setBlockY(y -= 1);
+						}
+						else if (returnBlock.getBlockImg().getName().contains("respawn") && returnBlock.getBlockY()-8==block.getBlockY()){
 							block.setBlockY(y -= 1);
 						}
 					}
@@ -166,17 +169,20 @@ public class UpdateBlocks {
         for (int i=0; i<blocks.size(); i++){
         	Block block = blocks.get(i);
             if (block.getBlockPos().intersects(mousePos)){
-            	if (!block.getBlockImg().getName().contains("respawn")){
-            		//Allow placement just above btn block
-            		if (block.getBlockImg().getName().contains("btn")){
-            			if (mousePos.getY() >= block.getBlockY()-10){
-            				return true;
-            			}
-            		}
-            		else{
-            			return true;
-            		}
-            	}
+        		//Allow placement just above btn block
+        		if (block.getBlockImg().getName().contains("btn")){
+        			if (mousePos.getY() >= block.getBlockY()-10){
+        				return true;
+        			}
+        		}
+        		else if (block.getBlockImg().getName().contains("respawn")){
+        			if (mousePos.getY() >= block.getBlockY()-10){
+        				return true;
+        			}
+        		}
+        		else{
+        			return true;
+        		}
             }
         }
         for (int i=0; i<ents.size(); i++){

@@ -8,6 +8,7 @@ public class Global {
 	private Options options;
 	private ArrayList<Img> images;
 	private ArrayList<ImgSheet> sheets;
+	private ArrayList<Animate> animations;
 	private ArrayList<Menu> menus;
 	private ArrayList<Song> songs;
 	private ArrayList<Sfx> sounds;
@@ -66,6 +67,19 @@ public class Global {
 	public ImgSheet getSheetByName(String name){
 		for(int i=0; i<sheets.size(); i++){
 			if (sheets.get(i).getName().equals(name)) return sheets.get(i);
+		}
+		return null;
+	}
+	//Animations
+	public ArrayList<Animate> getAnimations(){
+		return animations;
+	}
+	public void setAnimations(ArrayList<Animate> animations){
+		this.animations=animations;
+	}
+	public Animate getAnimationByName(String name){
+		for(int i=0; i<animations.size(); i++){
+			if (animations.get(i).getName().equals(name)) return animations.get(i);
 		}
 		return null;
 	}
