@@ -1,11 +1,13 @@
-Graphics:
+Graphics (In order of priority):
 _block_respawn
 _logo?
 
-Code:
-_Fix menu buttons, down animation
+Code (In order of priority):
 _Animations
+_Fix menu buttons, down animation
 _UpdateButtons/Doors
+_Player-Portal interaction
+_UpdateEnemies
 _Level1
 _Level2
 _Level3
