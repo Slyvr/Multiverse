@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="libs/jorbis-0.0.15.jar"/>
 	<classpathentry kind="lib" path="libs/lwjgl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Slyvr/Desktop/Programming/Java/Game Projects/lwjgl-2.8.2/native/windows"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Slyvr/Desktop/Programming/Java/Game Projects/Projects/Multiverse/Multiverse/libs/native/windows"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/slick-util.jar"/>
