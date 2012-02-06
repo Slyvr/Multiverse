@@ -17,26 +17,45 @@ public class Tools {
 		return distance;
 	}
 	
-	public static Color[] getColorData(Image img){
-		Color[] imgColor = new Color[img.getWidth() * img.getHeight()];
+	public static Color[][] getColorData(Image img){
+		Color[][] imgColor = new Color[img.getWidth()][img.getHeight()];
 		for(int x=0; x<img.getWidth(); x++){
 			for (int y=0; y<img.getHeight(); y++){
 				Color currentColor = img.getColor(x, y);
-				for (int i=0; i<imgColor.length; i++){
-					if (imgColor[i]==null){
-						imgColor[i]=currentColor;
-						break;
-					}
-				}
+				imgColor[x][y]=currentColor;
+//				for (int i=0; i<imgColor.length; i++){
+//					if (imgColor[i]==null){
+//						imgColor[i]=currentColor;
+//						break;
+//					}
+//				}
 			}
 		}
 		return imgColor;
 	}
-	public static Boolean IntersectPixels(Rectangle rectangleA, Color[] dataA, Rectangle rectangleB, Color[] dataB)
+	
+	//DOES NOT WORK YET
+	public static Boolean intersectPixels(Image img1, Image img2){
+		for (int x=0; x<img1.getWidth(); x++){
+			for (int y=0; y<img1.getHeight(); y++){
+				
+				Color colorA = img1.getColor(x, y);
+				Color colorB = img2.getColor(x, y);
+				
+				if (colorA.getAlpha()!=0 && colorB.getAlpha()!=0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	//DOES NOT WORK YET
+	public static Boolean intersectPixels(Rectangle rectangleA, Color[][] dataA, Rectangle rectangleB, Color[][] dataB)
     {
         // Find the bounds of the rectangle intersection
         int top = (int) Math.max(rectangleA.getMinY(), rectangleB.getMinY());
-        int bottom = (int)Math.min(rectangleA.getMaxY(), rectangleB.getMaxY());
+        int bottom = (int) Math.min(rectangleA.getMaxY(), rectangleB.getMaxY());
         int left = (int) Math.max(rectangleA.getMinX(), rectangleB.getMinX());
         int right = (int) Math.min(rectangleA.getMaxX(), rectangleB.getMaxX());
 
@@ -46,13 +65,15 @@ public class Tools {
             for (int x = left; x < right; x++)
             {
                 // Get the color of both pixels at this point
-                Color colorA = dataA[(int) ((x - rectangleA.getMinX()) +
-                                     (y - rectangleA.getMinY()) * rectangleA.getWidth())];
-                Color colorB = dataB[(int) ((x - rectangleB.getMinX()) +
-                                     (y - rectangleB.getMinY()) * rectangleB.getWidth())];
+            	Color colorA = dataA[(int) (x - rectangleA.getMinX())][(int) (y - rectangleA.getMinY())];
+            	Color colorB = dataB[(int) (x - rectangleB.getMinX())][(int) (y - rectangleB.getMinY())];
+//                Color colorA = dataA[(int) ((x - rectangleA.getMinX()) +
+//                                     (y - rectangleA.getMinY()) * rectangleA.getWidth())];
+//                Color colorB = dataB[(int) ((x - rectangleB.getMinX()) +
+//                                     (y - rectangleB.getMinY()) * rectangleB.getWidth())];
 
                 // If both pixels are not completely transparent,
-                if (colorA.a != 0 && colorB.a != 0)
+                if (colorA.getAlpha() != 0 && colorB.getAlpha() != 0)
                 {
                     // then an intersection has been found
                     return true;

@@ -7,8 +7,6 @@ public class Options {
     private int left;
     private int right;
     private int jump;
-    private int pause;
-    private int attack;
     private float volume;
 
     public Options()
@@ -16,9 +14,7 @@ public class Options {
         fullscreen = false;
         left = Keyboard.KEY_A;
         right = Keyboard.KEY_D;
-        jump = Keyboard.KEY_W;
-        pause = Keyboard.KEY_ESCAPE;
-        attack = Keyboard.KEY_SPACE;
+        jump = Keyboard.KEY_SPACE;
         volume = 1f;
     }
 
@@ -57,24 +53,6 @@ public class Options {
     public void setJump(int jump)
     {
         this.jump = jump;
-    }
-    //Pause
-    public int getPause()
-    {
-        return pause;
-    }
-    public void setPause(int pause)
-    {
-        this.pause = pause;
-    }
-    //Attack
-    public int getAttack()
-    {
-        return attack;
-    }
-    public void setAttack(int attack)
-    {
-        this.attack = attack;
     }
     //Volume
     public float getVolume()

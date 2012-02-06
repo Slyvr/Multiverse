@@ -22,6 +22,7 @@ public class Global {
 	public Global(){
 		current=new Current();
 		millisec = System.currentTimeMillis();
+		options = new Options();
 	}
 	
 	//Current

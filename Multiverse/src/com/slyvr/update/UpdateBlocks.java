@@ -167,7 +167,15 @@ public class UpdateBlocks {
         	Block block = blocks.get(i);
             if (block.getBlockPos().intersects(mousePos)){
             	if (!block.getBlockImg().getName().contains("respawn")){
-	            	return true;
+            		//Allow placement just above btn block
+            		if (block.getBlockImg().getName().contains("btn")){
+            			if (mousePos.getY() >= block.getBlockY()-10){
+            				return true;
+            			}
+            		}
+            		else{
+            			return true;
+            		}
             	}
             }
         }

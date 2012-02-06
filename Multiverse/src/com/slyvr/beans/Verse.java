@@ -94,26 +94,26 @@ public class Verse {
         blocks.remove(block);
     }
     //Remove Single Block By Position
-    public void removeVerseBlockByPosition(Rectangle pos)
-    {
-    	
-    	for (int i=0; i<blocks.size(); i++)
-        {
-    		if (blocks.get(i).getBlockPos().intersects(pos)){
-	            Color[] blockTextureData = new Color[blocks.get(i).getBlockImg().getImage().getWidth() * blocks.get(i).getBlockImg().getImage().getHeight()];
-	            Color[] positionTextureData = new Color[blockTextureData.length];
-	            positionTextureData[0] = new Color(1, 1, 1);
-	            Color[] imgColor = Tools.getColorData(blocks.get(i).getBlockImg().getImage());
-				Boolean collision = Tools.IntersectPixels(pos, positionTextureData, blocks.get(i).getBlockPos(), imgColor);
-	
-	            if (collision)
-	            {
-	                removeVerseBlock(blocks.get(i));
-	                break;
-	            }
-    		}
-        }
-    }
+//    public void removeVerseBlockByPosition(Rectangle pos)
+//    {
+//    	
+//    	for (int i=0; i<blocks.size(); i++)
+//        {
+//    		if (blocks.get(i).getBlockPos().intersects(pos)){
+//	            Color[] blockTextureData = new Color[blocks.get(i).getBlockImg().getImage().getWidth() * blocks.get(i).getBlockImg().getImage().getHeight()];
+//	            Color[] positionTextureData = new Color[blockTextureData.length];
+//	            positionTextureData[0] = new Color(1, 1, 1);
+//	            Color[] imgColor = Tools.getColorData(blocks.get(i).getBlockImg().getImage());
+//				Boolean collision = Tools.intersectPixels(pos, positionTextureData, blocks.get(i).getBlockPos(), imgColor);
+//	
+//	            if (collision)
+//	            {
+//	                removeVerseBlock(blocks.get(i));
+//	                break;
+//	            }
+//    		}
+//        }
+//    }
     //Entity Limit
     public int getVerseEntityLimit()
     {

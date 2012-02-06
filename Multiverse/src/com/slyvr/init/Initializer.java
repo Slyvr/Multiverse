@@ -29,7 +29,6 @@ public class Initializer {
 		System.out.println("Loading entities...");
 		InitEntities.init(global);
 		System.out.println("Loading levels...");
-		//TODO - causes lag in the initial loading
 		InitLevels.init(global);
 		System.out.println("Done Loading!");
 	}

@@ -3,11 +3,13 @@ package com.slyvr.update;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
+import com.slyvr.tools.Tools;
 
 public class UpdatePlayer {
 
@@ -93,14 +95,17 @@ public class UpdatePlayer {
             }
 			
             //process falling
-            player.setEntityY(y += player.getEntityFallSpeed());
-            if (processBlockCollisions(player, blockList) && !returnBlock.getBlockImg().getName().equals("block_highlight")){
-                player.setEntityY(y -= player.getEntityFallSpeed());
-                onGround = true;
-                jumping = false;
+            int fallSpeed = 1;
+            player.setEntityY(y += fallSpeed);
+            if (processBlockCollisions(player, blockList)){
+            	if (!returnBlock.getBlockImg().getName().equals("block_highlight") && !returnBlock.getBlockImg().getName().equals("block_respawn")){
+	                player.setEntityY(y -= fallSpeed);
+	                onGround = true;
+	                jumping = false;
+            	}
             }
             else if (processEntityCollisions(player, global.getCurrent().getCurrentVerse().getVerseEntities())){
-                player.setEntityY(y -= player.getEntityFallSpeed());
+                player.setEntityY(y -= fallSpeed);
                 onGround = true;
                 jumping = false;
             }
@@ -133,8 +138,23 @@ public class UpdatePlayer {
         	Rectangle pos = new Rectangle(player.getEntityPos().getX(),player.getEntityPos().getY(),player.getEntityPos().getWidth()-5,player.getEntityPos().getHeight());
             if (block.getBlockPos().intersects(pos)){
             	if (!block.getBlockImg().getName().contains("respawn") && !block.getBlockImg().getName().contains("portal")){
-	            	returnBlock = block;
-	            	return true;
+            		
+            		//Skip processing per pixel
+            		if (block.getBlockImg().getName().equals("block_door")){
+            			returnBlock = block;
+            			return true;
+            		}
+            		else{
+	            		//process per pixel collision
+	            		Rectangle rectangleA = player.getEntityPos();
+	            		Rectangle rectangleB = block.getBlockPos();
+	            		Color[][] dataA = Tools.getColorData(player.getEntityImg().getImage());
+	            		Color[][] dataB = Tools.getColorData(block.getBlockImg().getImage());
+	            		if(Tools.intersectPixels(rectangleA, dataA, rectangleB, dataB)){
+	            			returnBlock = block;
+	    	            	return true;
+	            		}
+            		}
             	}
             }
         }

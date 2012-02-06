@@ -17,6 +17,8 @@ public class InitMenus {
 		global.getMenus().add(initConstant(global));
 		global.getMenus().add(initMain(global));
 		global.getMenus().add(initOptions(global));
+		global.getMenus().add(initControls(global));
+		global.getMenus().add(initControlSelect(global));
 		global.getMenus().add(initPause(global));
 		global.getMenus().add(initPlay(global));
 		global.getMenus().add(initSingle(global));
@@ -24,6 +26,7 @@ public class InitMenus {
 		global.getMenus().add(initSave(global));
 		global.getMenus().add(initLoad(global));
 		global.getMenus().add(initGame(global));
+		global.getMenus().add(initCredits(global));
 		
 		global.getCurrent().setMenu(global.getMenuByName("main"));
 	}
@@ -51,6 +54,8 @@ public class InitMenus {
 			//menuItems.add(new MenuItem("btn_multi",global.getSheetByName("btns2"),0,4,new Rectangle(500,280,width,height)));
 			menuItems.add(new MenuItem("btn_options",global.getSheetByName("btns"),0,2,new Rectangle(400,360,width,height)));
 			menuItems.add(new MenuItem("btn_exit",global.getSheetByName("btns"),0,4,new Rectangle(400,440,width,height)));
+			
+			menuItems.add(new MenuItem("btn_credits",global.getSheetByName("btns2"),0,6,new Rectangle(860,600,width,height)));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -64,11 +69,14 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("btn_changeVol",global.getSheetByName("btns2"),0,3,new Rectangle(350,200,width,height)));
+			menuItems.add(new MenuItem("btn_changeVol",global.getSheetByName("btns2"),0,5,new Rectangle(350,200,width,height)));
 			menuItems.add(new MenuItem("txt_volume","Volume: 1.0",new Rectangle(400,200,0,0)));
 			
-			menuItems.add(new MenuItem("btn_changeFullScreen",global.getSheetByName("btns2"),0,3,new Rectangle(350,260,width,height)));
+			menuItems.add(new MenuItem("btn_changeFullScreen",global.getSheetByName("btns2"),0,5,new Rectangle(350,260,width,height)));
 			menuItems.add(new MenuItem("txt_fullscreen","Windowed",new Rectangle(400,260,0,0)));
+			
+			menuItems.add(new MenuItem("btn_changeControls",global.getSheetByName("btns2"),0,5,new Rectangle(350,320,width,height)));
+			menuItems.add(new MenuItem("txt_controls","Change Controls",new Rectangle(400,320,0,0)));
 			
 			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,360,width,height)));
 		}catch(Exception e){
@@ -76,6 +84,46 @@ public class InitMenus {
 		}
 		
 		menu.setName("options");
+		menu.setMenuItems(menuItems);
+		return menu;
+	}
+	public static Menu initControls(Global global){
+		Menu menu = new Menu();
+		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+		
+		try{
+			menuItems.add(new MenuItem("btn_changeLeft",global.getSheetByName("btns2"),0,5,new Rectangle(350,200,width,height)));
+			menuItems.add(new MenuItem("txt_left","Left: A",new Rectangle(400,200,0,0)));
+			
+			menuItems.add(new MenuItem("btn_changeRight",global.getSheetByName("btns2"),0,5,new Rectangle(350,260,width,height)));
+			menuItems.add(new MenuItem("txt_right","Right: D",new Rectangle(400,260,0,0)));
+			
+			menuItems.add(new MenuItem("btn_changeJump",global.getSheetByName("btns2"),0,5,new Rectangle(350,320,width,height)));
+			menuItems.add(new MenuItem("txt_jump","Jump: Space",new Rectangle(400,320,0,0)));
+			
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,360,width,height)));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		menu.setName("controls");
+		menu.setMenuItems(menuItems);
+		return menu;
+	}
+	public static Menu initControlSelect(Global global){
+		Menu menu = new Menu();
+		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+		
+		try{
+			menuItems.add(new MenuItem("txt_enter","Enter the new key binding for (         )",new Rectangle(350,200,0,0)));
+			menuItems.add(new MenuItem("txt_key","Left",new Rectangle(650,200,0,0)));
+			
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,360,width,height)));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		menu.setName("controlselect");
 		menu.setMenuItems(menuItems);
 		return menu;
 	}
@@ -184,6 +232,26 @@ public class InitMenus {
 		}
 		
 		menu.setName("game");
+		menu.setMenuItems(menuItems);
+		return menu;
+	}
+	public static Menu initCredits(Global global){
+		Menu menu = new Menu();
+		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+		
+		try{
+			String credits = "Programming by: Matt Schrum" +
+							"\n                Zechariah Campbell"+
+							"\n\nGraphics by: Austin Mercado";
+			
+			
+			menuItems.add(new MenuItem("txt_credits",credits,new Rectangle(400,200,100,30)));
+			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,440,width,height)));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		menu.setName("credits");
 		menu.setMenuItems(menuItems);
 		return menu;
 	}
