@@ -17,10 +17,4 @@ public class InitLevels {
         global.getCurrent().setCurrentLevel(menuLevel);
         global.setMenuLevel(menuLevel);
     }
-    public static Level loadLevelByIndex(Global global, Current current, int index)
-    {
-        Level level = null;
-        if (index == 0) level = InitLevel1.loadLevel1(global);
-        return level;
-    }
 }

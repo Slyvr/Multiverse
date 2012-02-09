@@ -3,26 +3,25 @@ package com.slyvr.init.levels;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
-import com.slyvr.beans.Block;
-import com.slyvr.beans.Entity;
-import com.slyvr.beans.Global;
-import com.slyvr.beans.Level;
-import com.slyvr.beans.Verse;
+import com.slyvr.beans.*;
 
-public class InitLevelMenu {
-
-	public static Level init(Global global)
-    {
+public class InitLevel2 {
+	
+	public static Level loadLevel2(Global global)
+    {     
+        //Verse1
         Verse verse = new Verse();
         verse.setVerseId(1);
         verse.setVerseBgColor(Color.gray);
         verse.setVerseBlockLimit(0);
+        verse.setVerseString("*Get to the Portal!*");
         
         ArrayList<Block> background = new ArrayList<Block>();
         for(int x=0; x<990; x+=30){
-        	for (int y=0; y<660; y+=30){
+        	for (int y=30; y<660; y+=30){
         		Block block = new Block(global.getBlockByTextureName("block_tech1_dark"));
         		block.setBlockPos(new Rectangle(x,y,30,30));
         		background.add(block);
@@ -30,23 +29,22 @@ public class InitLevelMenu {
         }
         verse.setVerseBackground(background);
 
-        ArrayList<Block> verseBlocks = LevelTools.generateLevelBlocks(global, global.getImageByName("grid_levelMain").getImage(), false);
+        Image gridTex = global.getImageByName("grid_level2").getImage();
+        ArrayList<Block> verseBlocks = LevelTools.generateLevelBlocks(global, gridTex, false);
         verse.setVerseBlocks(verseBlocks);
 
-        ArrayList<Entity> verseEnts = LevelTools.generateLevelEntities(global, global.getImageByName("grid_levelMain").getImage());
-        verse.setVerseEntities(verseEnts);
-
+        //Add Entities
         Entity player = new Entity(global.getEntityByName("ent_player"));
-        player.setEntityPos(new Rectangle(150,270,30,30));
+        player.setEntityPos(new Rectangle(60,60,30,30));
 
+        //Level
         Level level = new Level();
-        level.setLevelId(0);
+        level.setLevelId(2);
         //Add verses
         level.addLevelVerse(verse);
         //Add entities
         level.addLevelEntity(player);
 
-        global.getCurrent().setCurrentVerse(verse);
         return level;
     }
 }

@@ -7,6 +7,7 @@ public class Options {
     private int left;
     private int right;
     private int jump;
+    private int pause;
     private float volume;
 
     public Options()
@@ -15,6 +16,7 @@ public class Options {
         left = Keyboard.KEY_A;
         right = Keyboard.KEY_D;
         jump = Keyboard.KEY_SPACE;
+        pause = Keyboard.KEY_P;
         volume = 1f;
     }
 
@@ -53,6 +55,15 @@ public class Options {
     public void setJump(int jump)
     {
         this.jump = jump;
+    }
+  //Pause
+    public int getPause()
+    {
+        return pause;
+    }
+    public void setPause(int pause)
+    {
+        this.pause = pause;
     }
     //Volume
     public float getVolume()

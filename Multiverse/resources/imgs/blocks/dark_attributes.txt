@@ -1,0 +1,2 @@
+brightness and contrast
+brightness = -50 from original

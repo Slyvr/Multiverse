@@ -8,7 +8,7 @@ public class UpdateMusic {
 
 	public static void update(GameContainer container, Global global){
 		if(global.getCurrent().getSong()==null){
-			global.getCurrent().setSong(global.getSongByName("Epoq-Lepidoptera").getSong());
+			//global.getCurrent().setSong(global.getSongByName("Epoq-Lepidoptera").getSong());
 		}
 		else{
 			if (global.getCurrent().getSong().getPosition()==0){

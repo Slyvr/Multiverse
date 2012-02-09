@@ -1,6 +1,7 @@
 package com.slyvr.update;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
@@ -9,6 +10,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
+import com.slyvr.init.levels.LevelTools;
 import com.slyvr.tools.Tools;
 
 public class UpdatePlayer {
@@ -16,6 +18,7 @@ public class UpdatePlayer {
 	static Input prevInput;
 	static Boolean jumping;
 	static Boolean onGround;
+	static Boolean portaling;
 	static int maxY;
 	static Block returnBlock;
 	static Entity returnEnt;
@@ -36,16 +39,17 @@ public class UpdatePlayer {
         if (onGround==null) onGround=true;
         if (jumping==null) jumping=false;
         if (prevInput == null) prevInput=container.getInput();
+        if (portaling == null) portaling=false;
 		
         //Player movement occurs every 5 milliseconds
-        if ((System.currentTimeMillis()-prevMilli)>=player.getEntitySpeed()){
+        if ((System.currentTimeMillis()-prevMilli)>=player.getEntitySpeed() && !portaling){
         	//Move Left
 			if (input.isKeyDown(global.getOptions().getLeft())){
 				player.setEntityX(x -= 1);
 	            if (jumping) player.setEntityImg(global.getImageByName("ent_player2-1"));
 	            else player.setEntityImg(global.getImageByName("ent_player1-1"));
-	            if (processBlockCollisions(player, blockList)||player.getEntityX()<0){
-	                player.setEntityX(x += 1);
+	            if (processBlockCollisions(global, player, blockList)||player.getEntityX()<0){
+	            	player.setEntityX(x += 1);
 	            }
 	            else if (processEntityCollisions(player, global.getCurrent().getCurrentVerse().getVerseEntities())){
 	                player.setEntityX(x += 1);
@@ -56,8 +60,8 @@ public class UpdatePlayer {
 				player.setEntityX(x += 1);
 	            if (jumping) player.setEntityImg(global.getImageByName("ent_player2"));
 	            else player.setEntityImg(global.getImageByName("ent_player1"));
-	            if (processBlockCollisions(player, blockList)||player.getEntityX()>=960){
-	                player.setEntityX(x -= 1);
+	            if (processBlockCollisions(global, player, blockList)||player.getEntityX()>=960){
+	            	player.setEntityX(x -= 1);
 	            }
 	            else if (processEntityCollisions(player, global.getCurrent().getCurrentVerse().getVerseEntities())){
 	                player.setEntityX(x -= 1);
@@ -81,7 +85,7 @@ public class UpdatePlayer {
                 else jumping = false;
                 if (jumping){
                     player.setEntityY(y -= player.getEntityFallSpeed() * 2);
-                    if (processBlockCollisions(player, blockList)||player.getEntityY()<30){
+                    if (processBlockCollisions(global, player, blockList)||player.getEntityY()<30){
                         player.setEntityY(y += player.getEntityFallSpeed() * 2);
                         jumping = false;
                         onGround = false;
@@ -97,7 +101,7 @@ public class UpdatePlayer {
             //process falling
             int fallSpeed = 1;
             player.setEntityY(y += fallSpeed);
-            if (processBlockCollisions(player, blockList)){
+            if (processBlockCollisions(global, player, blockList)){
             	if (!returnBlock.getBlockImg().getName().equals("block_highlight") && !returnBlock.getBlockImg().getName().equals("block_respawn")){
 	                player.setEntityY(y -= fallSpeed);
 	                onGround = true;
@@ -117,9 +121,68 @@ public class UpdatePlayer {
 			
 			prevMilli = System.currentTimeMillis();
         }
+        else if (portaling){
+        	processPortalCollision(global);
+        }
+	}
+	public static void processPortalCollision(Global global){
+		//Collision with portal.  Activate transition animation, and transfer to new level
+
+		//Block black hole animation
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		blocks.addAll(global.getCurrent().getCurrentVerse().getVerseBlocks());
+		blocks.addAll(global.getCurrent().getCurrentVerse().getVerseBackground());
+		for (Block block : blocks){
+			//If it's not the portal
+			if (!block.getBlockImg().getName().contains("portal")){
+				Block portal = global.getCurrent().getCurrentPortal(global.getCurrent());
+				Random rand = new Random();
+				//Determine the X and Y direction to move in and move about randomly
+				int blockSpeed = 5;
+				if (rand.nextInt(10)<blockSpeed){
+					if (block.getBlockX() - portal.getBlockX() < 0){
+						block.setBlockX(block.getBlockX() + rand.nextInt(blockSpeed));
+					}
+					else if (block.getBlockX() - portal.getBlockX() > 0){
+						block.setBlockX(block.getBlockX() - rand.nextInt(blockSpeed));
+					}
+					else {
+						block.setBlockPos(portal.getBlockPos());
+					}
+				}
+				if (rand.nextInt(10)<blockSpeed){
+					if (block.getBlockY() - portal.getBlockY() < 0){
+						block.setBlockY(block.getBlockY() + rand.nextInt(blockSpeed));
+					}
+					else if (block.getBlockY() - portal.getBlockY() > 0){
+						block.setBlockY(block.getBlockY() - rand.nextInt(blockSpeed));
+					}
+					else {
+						block.setBlockPos(portal.getBlockPos());
+					}
+				}
+				
+				//if collision with portal occurs, delete block
+				if (block.getBlockPos().intersects(portal.getBlockPos()) | block.getBlockPos().equals(portal.getBlockPos())){
+					global.getCurrent().getCurrentVerse().getVerseBlocks().remove(block);
+				}
+				//if no more blocks exist, end this animation and continue to next level
+				if (global.getCurrent().getCurrentVerse().getVerseBlocks().size() <= 3){
+					portaling=false;
+					//tele to next level
+					Level level= LevelTools.getNextLevel(global);
+					global.getCurrent().setCurrentLevel(level);
+					global.getCurrent().setCurrentVerse(level.getLevelVerses().get(0));
+					global.getMenuByName("game").getMenuItemByName("leveltext").setText("Level "+level.getLevelId());
+					respawnPlayer(global);
+				}
+			}
+		}
 	}
 	
 	public static void respawnPlayer(Global global){
+		//Get position of respawn block...if none exists spawn at 0,0.
+		//Create respawn animation?
 		Entity player = global.getCurrent().getCurrentPlayer(global.getCurrent());
 		if (global.getCurrent().getCurrentRespawn(global.getCurrent())!=null){
 			Rectangle respawnPos = global.getCurrent().getCurrentRespawn(global.getCurrent()).getBlockPos();
@@ -131,29 +194,25 @@ public class UpdatePlayer {
 		}
 	}
 	
-	public static Boolean processBlockCollisions(Entity player, ArrayList<Block> blocks)
+	public static Boolean processBlockCollisions(Global global, Entity player, ArrayList<Block> blocks)
     {
         for (int i=0; i<blocks.size(); i++){
         	Block block = blocks.get(i);
         	Rectangle pos = new Rectangle(player.getEntityPos().getX(),player.getEntityPos().getY(),player.getEntityPos().getWidth()-5,player.getEntityPos().getHeight());
             if (block.getBlockPos().intersects(pos)){
+            	if (block.getBlockImg().getName().contains("portal")){
+            		portaling=true;
+            		processPortalCollision(global);
+            	}
             	if (!block.getBlockImg().getName().contains("respawn") && !block.getBlockImg().getName().contains("portal")){
-            		
-            		//Skip processing per pixel
-            		if (block.getBlockImg().getName().equals("block_door")){
+            		//process per pixel collision
+            		Rectangle rectangleA = player.getEntityPos();
+            		Rectangle rectangleB = block.getBlockPos();
+            		Color[][] dataA = Tools.getColorData(player.getEntityImg().getImage());
+            		Color[][] dataB = Tools.getColorData(block.getBlockImg().getImage());
+            		if(Tools.intersectPixels(rectangleA, dataA, rectangleB, dataB)){
             			returnBlock = block;
-            			return true;
-            		}
-            		else{
-	            		//process per pixel collision
-	            		Rectangle rectangleA = player.getEntityPos();
-	            		Rectangle rectangleB = block.getBlockPos();
-	            		Color[][] dataA = Tools.getColorData(player.getEntityImg().getImage());
-	            		Color[][] dataB = Tools.getColorData(block.getBlockImg().getImage());
-	            		if(Tools.intersectPixels(rectangleA, dataA, rectangleB, dataB)){
-	            			returnBlock = block;
-	    	            	return true;
-	            		}
+    	            	return true;
             		}
             	}
             }

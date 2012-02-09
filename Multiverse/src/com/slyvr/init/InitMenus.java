@@ -94,14 +94,17 @@ public class InitMenus {
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		
 		try{
-			menuItems.add(new MenuItem("btn_changeLeft",global.getSheetByName("btns2"),0,5,new Rectangle(350,200,width,height)));
-			menuItems.add(new MenuItem("txt_left","Left: A",new Rectangle(400,200,0,0)));
+			menuItems.add(new MenuItem("btn_changeLeft",global.getSheetByName("btns2"),0,5,new Rectangle(350,140,width,height)));
+			menuItems.add(new MenuItem("txt_left","Left: A",new Rectangle(400,140,0,0)));
 			
-			menuItems.add(new MenuItem("btn_changeRight",global.getSheetByName("btns2"),0,5,new Rectangle(350,260,width,height)));
-			menuItems.add(new MenuItem("txt_right","Right: D",new Rectangle(400,260,0,0)));
+			menuItems.add(new MenuItem("btn_changeRight",global.getSheetByName("btns2"),0,5,new Rectangle(350,200,width,height)));
+			menuItems.add(new MenuItem("txt_right","Right: D",new Rectangle(400,200,0,0)));
 			
-			menuItems.add(new MenuItem("btn_changeJump",global.getSheetByName("btns2"),0,5,new Rectangle(350,320,width,height)));
-			menuItems.add(new MenuItem("txt_jump","Jump: Space",new Rectangle(400,320,0,0)));
+			menuItems.add(new MenuItem("btn_changeJump",global.getSheetByName("btns2"),0,5,new Rectangle(350,260,width,height)));
+			menuItems.add(new MenuItem("txt_jump","Jump: Space",new Rectangle(400,260,0,0)));
+			
+			menuItems.add(new MenuItem("btn_changePause",global.getSheetByName("btns2"),0,5,new Rectangle(350,320,width,height)));
+			menuItems.add(new MenuItem("txt_pause","Pause: P",new Rectangle(400,320,0,0)));
 			
 			menuItems.add(new MenuItem("btn_back",global.getSheetByName("btns"),0,6,new Rectangle(400,360,width,height)));
 		}catch(Exception e){

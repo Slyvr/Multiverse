@@ -26,14 +26,21 @@ public class InitImages {
 			
 			//Blocks
 			images.add(new Img(new Image("resources/imgs/blocks/block_grass.png"),"block_grass"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_grass_dark.png"),"block_grass_dark"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_wood.png"),"block_wood"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_wood_dark.png"),"block_wood_dark"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech1.png"),"block_tech1"));
-			images.add(new Img(new Image("resources/imgs/blocks/block_tech1-1.png"),"block_tech1-1"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech1_dark.png"),"block_tech1_dark"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-1.png"),"block_tech2-1"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-1_dark.png"),"block_tech2-1_dark"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-2.png"),"block_tech2-2"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-2_dark.png"),"block_tech2-2_dark"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-3.png"),"block_tech2-3"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-3_dark.png"),"block_tech2-3_dark"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-4.png"),"block_tech2-4"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech2-4_dark.png"),"block_tech2-4_dark"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_tech3.png"),"block_tech3"));
+			images.add(new Img(new Image("resources/imgs/blocks/block_tech3_dark.png"),"block_tech3_dark"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_portal.png"),"block_portal"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_respawn.png"),"block_respawn"));
 			images.add(new Img(new Image("resources/imgs/blocks/block_highlight.png"),"block_highlight"));

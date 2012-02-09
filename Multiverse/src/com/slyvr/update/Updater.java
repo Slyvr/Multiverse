@@ -12,7 +12,7 @@ public class Updater {
 	
 	public static void update(GameContainer container, int delta, Global global) throws SlickException{
 
-		if (global.getCurrent().getMenu().getName().contains("game")){
+		if (global.getCurrent().getMenu().getName().contains("game") && !global.getPaused()){
 			UpdatePlayer.updateMovement(container, global);
 			UpdateBlocks.updateBlockPlacement(global, container);
 			UpdateBlocks.updateWoodBlocks(global);
@@ -35,13 +35,18 @@ public class Updater {
 				System.exit(0);
 			}
 			else{
+				global.setPaused(true);
 				global.getCurrent().setMenu(global.getMenuByName("main"));
 			}
 		}
 		//Pause
-		if (input.isKeyDown(Input.KEY_P)){
-			if(container.isPaused()) container.resume();
-			else container.pause();
+		if (input.isKeyPressed(global.getOptions().getPause()) && !prevInput.isKeyPressed(global.getOptions().getPause())){
+			if(global.getPaused() && global.getCurrent().getMenu().getName().contains("game")) {
+				global.setPaused(false);
+			}
+			else {
+				global.setPaused(true);
+			}
 		}
 		
 		prevInput=input;

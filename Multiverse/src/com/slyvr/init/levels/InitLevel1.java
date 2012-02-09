@@ -22,14 +22,14 @@ public class InitLevel1 {
         ArrayList<Block> background = new ArrayList<Block>();
         for(int x=0; x<990; x+=30){
         	for (int y=30; y<660; y+=30){
-        		Block block = new Block(global.getBlockByTextureName("block_tech1-1"));
+        		Block block = new Block(global.getBlockByTextureName("block_tech1_dark"));
         		block.setBlockPos(new Rectangle(x,y,30,30));
         		background.add(block);
         	}
         }
         verse.setVerseBackground(background);
 
-        Image gridTex = global.getImageByName("grid_level2").getImage();
+        Image gridTex = global.getImageByName("grid_level1").getImage();
         ArrayList<Block> verseBlocks = LevelTools.generateLevelBlocks(global, gridTex, false);
         verse.setVerseBlocks(verseBlocks);
 

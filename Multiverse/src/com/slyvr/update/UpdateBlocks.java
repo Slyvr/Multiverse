@@ -136,25 +136,66 @@ public class UpdateBlocks {
 				Block block = blocks.get(i);
 				if (block.getBlockImg().getName().contains("wood")){
 					//Block Falling
-					int x = (int) block.getBlockPos().getX();
 					int y = (int) block.getBlockPos().getY();
 					block.setBlockY(y += 1);
 					
 					//Check Block Collision
+					Boolean blockCollision=false;
 					if (processBlockCollisions(block, global)){
+						blockCollision=true;
 						//Halt falling if collision detected
-						if (!returnBlock.getBlockImg().getName().contains("btn")&&!returnBlock.getBlockImg().getName().contains("respawn")) block.setBlockY(y -= 1);
-						//Check if wood block landed on button
-						else if (returnBlock.getBlockImg().getName().contains("btn") && returnBlock.getBlockY()-12==block.getBlockY()){
+						if (!returnBlock.getBlockImg().getName().contains("btn") && !returnBlock.getBlockImg().getName().contains("respawn")){
 							block.setBlockY(y -= 1);
 						}
-						else if (returnBlock.getBlockImg().getName().contains("respawn") && returnBlock.getBlockY()-8==block.getBlockY()){
+						//Check if wood block landed on button or respawn
+						else if (returnBlock.getBlockImg().getName().contains("btn") && returnBlock.getBlockY()-12<block.getBlockY()){
 							block.setBlockY(y -= 1);
+						}
+						else if (returnBlock.getBlockImg().getName().contains("respawn") && returnBlock.getBlockY()-8<block.getBlockY()){
+							block.setBlockY(y -= 1);
+						}
+					}
+					//Check Entity Collision
+					if (processEntCollisions(block, global)){
+						if (blockCollision){
+							//Check for wall collision
+							Rectangle pos = new Rectangle(block.getBlockX(),block.getBlockY()-5,30,30);
+							if (!returnBlock.getBlockImg().getName().contains("respawn")){
+								if (!pos.intersects(returnBlock.getBlockPos())){
+									moveWoodBlock(global, block);
+								}
+							}
+							else{
+								Rectangle pos1 = pos;
+								pos1.setX(pos.getX()+30);
+								Rectangle pos2 = pos;
+								pos2.setX(pos.getX()-30);
+								if (pos1.intersects(returnBlock.getBlockPos()) && returnBlock.getBlockPos().intersects(returnEnt.getEntityPos())){
+									moveWoodBlock(global, block);
+								}
+								else if (pos2.intersects(returnBlock.getBlockPos()) && returnBlock.getBlockPos().intersects(returnEnt.getEntityPos())){
+									moveWoodBlock(global, block);
+								}
+							}
 						}
 					}
 				}
 			}
 			prevMilli = System.currentTimeMillis();
+		}
+	}
+	public static void moveWoodBlock(Global global, Block block){
+		if (returnEnt.getEntityImg().getName().contains("player")){
+			//Determine if player is not standing on it
+			if (returnEnt.getEntityY()>block.getBlockY()){
+				//Determine if moving left or right
+				if (returnEnt.getEntityX() - block.getBlockX() > 0){
+					block.setBlockX(block.getBlockX() - 1);
+				}
+				else if (returnEnt.getEntityX() - block.getBlockX() < 0){
+					block.setBlockX(block.getBlockX() + 1);
+				}
+			}
 		}
 	}
 	

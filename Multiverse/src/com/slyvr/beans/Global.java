@@ -21,6 +21,7 @@ public class Global {
     private long millisec;
 	
 	public Global(){
+		paused=true;
 		current=new Current();
 		millisec = System.currentTimeMillis();
 		options = new Options();

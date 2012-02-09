@@ -1,11 +1,13 @@
 Graphics (In order of priority):
+_animations
+_enemy entities
 _block_respawn
 _logo?
 
 Code (In order of priority):
-_Animations
-_Fix menu buttons, down animation
-_UpdateButtons/Doors
+_UpdateButtons
+_UpdateDoors
+_UpdateLevers
 _Player-Portal interaction
 _UpdateEnemies
 _Level1

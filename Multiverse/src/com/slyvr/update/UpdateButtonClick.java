@@ -120,6 +120,12 @@ public class UpdateButtonClick {
 					global.getCurrent().setMenu(global.getMenuByName("controlselect"));
 					global.getSoundByName("cursor1").getSfx().play();
 				}
+				if (pressedItem.getName().equals("btn_changePause")){
+					prevMenu = global.getCurrent().getMenu();
+					global.getMenuByName("controlselect").getMenuItemByName("txt_key").setText("Pause");
+					global.getCurrent().setMenu(global.getMenuByName("controlselect"));
+					global.getSoundByName("cursor1").getSfx().play();
+				}
 				if (pressedItem.getName().equals("btn_back")){
 					getBackMenu(global);
 					global.getSoundByName("cursor1").getSfx().play();
@@ -137,6 +143,7 @@ public class UpdateButtonClick {
 				if (pressedItem.getName().equals("btn_resume")){
 					if (global.getCurrent().getCurrentLevel().getLevelId()!=0)
 					global.getCurrent().setMenu(global.getMenuByName("game"));
+					global.setPaused(false);
 				}
 				if (pressedItem.getName().equals("btn_newgame")){
 					global.getCurrent().setMenu(global.getMenuByName("game"));
@@ -147,6 +154,7 @@ public class UpdateButtonClick {
 					global.getCurrent().setCurrentLevel(global.getLevels().get(1));
 					global.getCurrent().setCurrentVerse(global.getCurrent().getCurrentLevel().getLevelVerses().get(0));
 					UpdatePlayer.respawnPlayer(global);
+					global.setPaused(false);
 				}
 				if (pressedItem.getName().equals("btn_save")){
 					global.getCurrent().setMenu(global.getMenuByName("save"));
@@ -211,6 +219,10 @@ public class UpdateButtonClick {
 					else if (global.getCurrent().getMenu().getMenuItemByName("txt_key").getText().equals("Jump")){
 						global.getOptions().setJump(i);
 						global.getMenuByName("controls").getMenuItemByName("txt_jump").setText("Jump: "+input.getKeyName(i));
+					}
+					else if (global.getCurrent().getMenu().getMenuItemByName("txt_key").getText().equals("Pause")){
+						global.getOptions().setPause(i);
+						global.getMenuByName("controls").getMenuItemByName("txt_pause").setText("Pause: "+input.getKeyName(i));
 					}
 					global.getCurrent().setMenu(global.getMenuByName("controls"));
 					break;
