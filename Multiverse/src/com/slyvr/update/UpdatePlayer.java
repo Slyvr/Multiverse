@@ -28,9 +28,10 @@ public class UpdatePlayer {
 		Input input = container.getInput();
 		Entity player = global.getCurrent().getCurrentPlayer(global.getCurrent());
 		
-		ArrayList<Block> blocks = global.getCurrent().getCurrentVerse().getVerseBlocks();
 		ArrayList<Block> blockList = new ArrayList<Block>();
-        blockList.addAll(blocks);
+		if (global.getCurrent().getCurrentVerse().getVerseEffectBlocks()!=null)
+			blockList.addAll(global.getCurrent().getCurrentVerse().getVerseEffectBlocks());
+        blockList.addAll(global.getCurrent().getCurrentVerse().getVerseBlocks());
         blockList.addAll(global.getCurrent().getCurrentLevel().getLevelBlocks());
 		
         if (prevMilli<=0) prevMilli = System.currentTimeMillis();
@@ -50,6 +51,9 @@ public class UpdatePlayer {
 	            else player.setEntityImg(global.getImageByName("ent_player1-1"));
 	            if (processBlockCollisions(global, player, blockList)||player.getEntityX()<0){
 	            	player.setEntityX(x += 1);
+	            	if (returnBlock.getBlockImg().getName().contains("wood")){
+	            		UpdateBlocks.moveWoodBlock(global, returnBlock, player.getEntityPos());
+	            	}
 	            }
 	            else if (processEntityCollisions(player, global.getCurrent().getCurrentVerse().getVerseEntities())){
 	                player.setEntityX(x += 1);
@@ -62,6 +66,9 @@ public class UpdatePlayer {
 	            else player.setEntityImg(global.getImageByName("ent_player1"));
 	            if (processBlockCollisions(global, player, blockList)||player.getEntityX()>=960){
 	            	player.setEntityX(x -= 1);
+	            	if (returnBlock.getBlockImg().getName().contains("wood")){
+	            		UpdateBlocks.moveWoodBlock(global, returnBlock, player.getEntityPos());
+	            	}
 	            }
 	            else if (processEntityCollisions(player, global.getCurrent().getCurrentVerse().getVerseEntities())){
 	                player.setEntityX(x -= 1);
@@ -126,10 +133,10 @@ public class UpdatePlayer {
         }
 	}
 	public static void processPortalCollision(Global global){
-		//Collision with portal.  Activate transition animation, and transfer to new level
-
 		//Block black hole animation
 		ArrayList<Block> blocks = new ArrayList<Block>();
+		if (global.getCurrent().getCurrentVerse().getVerseEffectBlocks()!=null)
+			blocks.addAll(global.getCurrent().getCurrentVerse().getVerseEffectBlocks());
 		blocks.addAll(global.getCurrent().getCurrentVerse().getVerseBlocks());
 		blocks.addAll(global.getCurrent().getCurrentVerse().getVerseBackground());
 		for (Block block : blocks){
@@ -186,11 +193,11 @@ public class UpdatePlayer {
 		Entity player = global.getCurrent().getCurrentPlayer(global.getCurrent());
 		if (global.getCurrent().getCurrentRespawn(global.getCurrent())!=null){
 			Rectangle respawnPos = global.getCurrent().getCurrentRespawn(global.getCurrent()).getBlockPos();
-			Rectangle pos = new Rectangle(respawnPos.getX(), respawnPos.getY()-10,respawnPos.getWidth(), respawnPos.getHeight());
+			Rectangle pos = new Rectangle(respawnPos.getX(), respawnPos.getY()-10,player.getEntityImg().getImage().getWidth(),player.getEntityImg().getImage().getHeight());
 			player.setEntityPos(pos);
 		}
 		else{
-			player.setEntityPos(new Rectangle(0,0,30,30));
+			player.setEntityPos(new Rectangle(0,0,player.getEntityImg().getImage().getWidth(),player.getEntityImg().getImage().getHeight()));
 		}
 	}
 	
@@ -198,22 +205,26 @@ public class UpdatePlayer {
     {
         for (int i=0; i<blocks.size(); i++){
         	Block block = blocks.get(i);
-        	Rectangle pos = new Rectangle(player.getEntityPos().getX(),player.getEntityPos().getY(),player.getEntityPos().getWidth()-5,player.getEntityPos().getHeight());
-            if (block.getBlockPos().intersects(pos)){
+        	Rectangle pos = new Rectangle(player.getEntityPos().getX(),player.getEntityPos().getY(),player.getEntityPos().getWidth(),player.getEntityPos().getHeight());
+            if (block.getBlockPos().intersects(player.getEntityPos())){
             	if (block.getBlockImg().getName().contains("portal")){
             		portaling=true;
             		processPortalCollision(global);
             	}
             	if (!block.getBlockImg().getName().contains("respawn") && !block.getBlockImg().getName().contains("portal")){
+            		
+        			returnBlock = block;
+	            	return true;
+            		
             		//process per pixel collision
-            		Rectangle rectangleA = player.getEntityPos();
-            		Rectangle rectangleB = block.getBlockPos();
-            		Color[][] dataA = Tools.getColorData(player.getEntityImg().getImage());
-            		Color[][] dataB = Tools.getColorData(block.getBlockImg().getImage());
-            		if(Tools.intersectPixels(rectangleA, dataA, rectangleB, dataB)){
-            			returnBlock = block;
-    	            	return true;
-            		}
+//            		Rectangle rectangleA = player.getEntityPos();
+//            		Rectangle rectangleB = block.getBlockPos();
+//            		Color[][] dataA = Tools.getColorData(player.getEntityImg().getImage());
+//            		Color[][] dataB = Tools.getColorData(block.getBlockImg().getImage());
+//            		if(Tools.intersectPixels(rectangleA, dataA, rectangleB, dataB)){
+//            			returnBlock = block;
+//    	            	return true;
+//            		}
             	}
             }
         }

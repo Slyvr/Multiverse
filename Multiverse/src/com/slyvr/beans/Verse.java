@@ -11,6 +11,7 @@ public class Verse {
 	private int verseId;
     private int verseType;
     private ArrayList<Block> blocks;
+    private ArrayList<EffectBlock> effectBlocks;
     private ArrayList<Entity> entities;
     private int entlimit;
     private int blocklimit;
@@ -56,10 +57,14 @@ public class Verse {
     {
         blocks = blockList;
     }
-    //Blocks
-    public Block getVerseBlockRecentlyPlaced()
+    //Effect Blocks
+    public ArrayList<EffectBlock> getVerseEffectBlocks()
     {
-        return blocks.get(blocks.size());
+        return effectBlocks;
+    }
+    public void setVerseEffectBlocks(ArrayList<EffectBlock> effectBlocks)
+    {
+    	this.effectBlocks = effectBlocks;
     }
     //Entities
     public ArrayList<Entity> getVerseEntities()

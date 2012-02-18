@@ -38,18 +38,6 @@ public class LevelTools {
                     block.setRemovable(removable);
                     blocks.add(block);
                 }
-                else if (colorA.getRed() == 255 && colorA.getGreen() == 174 && colorA.getBlue() == 201){
-                    Block block = new Block(global.getBlockByTextureName("block_btnUp"));
-                    block.setBlockPos(new Rectangle(x, y, 30, 30));
-                    block.setRemovable(removable);
-                    blocks.add(block);
-                }
-                else if (colorA.getRed() == 153 && colorA.getGreen() == 217 && colorA.getBlue() == 234){
-                    Block block = new Block(global.getBlockByTextureName("block_door"));
-                    block.setBlockPos(new Rectangle(x, y, 30, 30));
-                    block.setRemovable(removable);
-                    blocks.add(block);
-                }
                 else if (colorA.getRed() == 195 && colorA.getGreen() == 195 && colorA.getBlue() == 195){
                     Block block = new Block(global.getBlockByTextureName("block_tech1"));
                     block.setBlockPos(new Rectangle(x, y, 30, 30));
@@ -57,7 +45,7 @@ public class LevelTools {
                     blocks.add(block);
                 }
                 else if (colorA.getRed() == 127 && colorA.getGreen() == 127 && colorA.getBlue() == 127){
-                    Block block = new Block(global.getBlockByTextureName("block_tech2"));
+                    Block block = new Block(global.getBlockByTextureName("block_tech2-1"));
                     block.setBlockPos(new Rectangle(x, y, 30, 30));
                     block.setRemovable(removable);
                     blocks.add(block);
@@ -72,6 +60,39 @@ public class LevelTools {
                     Block block = new Block(global.getBlockByTextureName("block_doorway"));
                     block.setBlockPos(new Rectangle(x, y, 30, 30));
                     block.setRemovable(removable);
+                    blocks.add(block);
+                }
+            }
+        }
+        System.out.println("Level Blocks Generated!");
+
+        return blocks;
+    }
+	public static ArrayList<EffectBlock> generateLevelEffectBlocks(Global global, Image gridTex, Boolean removable){
+		System.out.println("Generating Level Effect Blocks...");
+
+        ArrayList<EffectBlock> blocks = new ArrayList<EffectBlock>();
+
+        //Each Block
+        int count=0;
+        for (int y = 30; y < 660; y+=30){
+            for (int x = 0; x < 990; x+=30){
+                Color colorA = gridTex.getColor(x+5, y+5);
+                
+                if (colorA.getRed() == 255 && colorA.getGreen() == 174 && colorA.getBlue() == 201){
+                    EffectBlock block = new EffectBlock(global.getBlockByTextureName("block_btnUp"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    block.setId(count);
+                    count++;
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 153 && colorA.getGreen() == 217 && colorA.getBlue() == 234){
+                	EffectBlock block = new EffectBlock(global.getBlockByTextureName("block_door"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    block.setId(count);
+                    count++;
                     blocks.add(block);
                 }
             }

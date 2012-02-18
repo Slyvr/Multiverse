@@ -32,6 +32,32 @@ public class InitLevel2 {
         Image gridTex = global.getImageByName("grid_level2").getImage();
         ArrayList<Block> verseBlocks = LevelTools.generateLevelBlocks(global, gridTex, false);
         verse.setVerseBlocks(verseBlocks);
+        
+        
+        //Effect Blocks
+        ArrayList<EffectBlock> verseEffectBlocks = LevelTools.generateLevelEffectBlocks(global, gridTex, false);
+        verse.setVerseEffectBlocks(verseEffectBlocks);
+        
+        //Get Btns
+        ArrayList<EffectBlock> btns = new ArrayList<EffectBlock>();
+        for (EffectBlock block : verse.getVerseEffectBlocks()){
+        	if (block.getBlockImg().getName().contains("btn")){
+        		btns.add(block);
+        	}
+        }
+        //Set Btns affected Door Blocks
+        for (EffectBlock block : verse.getVerseEffectBlocks()){
+        	if (block.getBlockImg().getName().equals("block_door")){
+        		for (EffectBlock btn : btns){
+        			if (btn.getAffectedBlock()==null) {
+        				btn.setAffectedBlock(block);
+        				btn.setAffectedOrigPos(block.getBlockPos());
+        			}
+        			break;
+        		}
+        	}
+        }
+        
 
         //Add Entities
         Entity player = new Entity(global.getEntityByName("ent_player"));

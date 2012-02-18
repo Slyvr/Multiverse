@@ -101,7 +101,7 @@ public class InitMenus {
 			menuItems.add(new MenuItem("txt_right","Right: D",new Rectangle(400,200,0,0)));
 			
 			menuItems.add(new MenuItem("btn_changeJump",global.getSheetByName("btns2"),0,5,new Rectangle(350,260,width,height)));
-			menuItems.add(new MenuItem("txt_jump","Jump: Space",new Rectangle(400,260,0,0)));
+			menuItems.add(new MenuItem("txt_jump","Jump: SPACE",new Rectangle(400,260,0,0)));
 			
 			menuItems.add(new MenuItem("btn_changePause",global.getSheetByName("btns2"),0,5,new Rectangle(350,320,width,height)));
 			menuItems.add(new MenuItem("txt_pause","Pause: P",new Rectangle(400,320,0,0)));

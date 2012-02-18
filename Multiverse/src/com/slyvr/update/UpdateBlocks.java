@@ -15,22 +15,20 @@ public class UpdateBlocks {
 	static Boolean buttonPressed;
 	static int blockPlaceDistance = 150;
 	static Block returnBlock;
+	static EffectBlock returnEffectBlock;
 	static Entity returnEnt;
 	static int blockFallSpeed=5;
 	static long prevMilli;
+	static long prevMilli2;
+	static long counter;
 	
 	public static void updateBlockPlacement(Global global, GameContainer container){
 		Input input = container.getInput();
 		if (prevInput==null)prevInput=input;
 		if (buttonPressed==null)buttonPressed=false;
 		
-		/*
-		 * Add new Block by
-		 * -creating red block_highlight on ButtonDown
-		 * -if in valid location, remove block_highlight, create new Block in mousePosition
-		 */
+		
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)){
-			
 			//Display red outline box
 			Boolean highlightOn=false;
 			for(int i=0; i<global.getCurrent().getCurrentVerse().getVerseBlocks().size(); i++){
@@ -44,7 +42,7 @@ public class UpdateBlocks {
             {
                 //If no red outline exists yet, create it.
                 Img blankblock = global.getImageByName("block_highlight");
-                Rectangle pos = new Rectangle(input.getMouseX(), input.getMouseY(), blankblock.getImage().getWidth(), blankblock.getImage().getHeight());
+                Rectangle pos = new Rectangle(input.getMouseX()-15, input.getMouseY()-15, blankblock.getImage().getWidth(), blankblock.getImage().getHeight());
                 Block blank = new Block();
                 blank.setBlockPos(pos);
                 blank.setBlockImg(blankblock);
@@ -63,14 +61,15 @@ public class UpdateBlocks {
     				}
     			}
                 Rectangle pos = blank.getBlockPos();
-                pos.setX(input.getMouseX());
-                pos.setY(input.getMouseY());
+                pos.setX(input.getMouseX()-15);
+                pos.setY(input.getMouseY()-15);
                 blank.setBlockPos(pos);
             }
+            
 		}
 		//Remove and block_highlight, and place new block
 		else if (!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
-            //remove red outline
+			//remove red outline
             Block blank = null;
         	for(int i=0; i<global.getCurrent().getCurrentVerse().getVerseBlocks().size(); i++){
 				Block block = global.getCurrent().getCurrentVerse().getVerseBlocks().get(i);
@@ -86,10 +85,10 @@ public class UpdateBlocks {
                 Boolean returnval = processAllCollisions(input, global);
                 if (!returnval)
                 {
-                	if (Tools.getDistance(new Rectangle(input.getMouseX(),input.getMouseY(),5,5), global.getCurrent().getCurrentPlayer(global.getCurrent()).getEntityPos())<blockPlaceDistance){
+                	if (Tools.getDistance(new Rectangle(input.getMouseX()-15,input.getMouseY()-15,5,5), global.getCurrent().getCurrentPlayer(global.getCurrent()).getEntityPos())<blockPlaceDistance){
 	                    if (global.getCurrent().getCurrentBlockType()!=null){
 	                		Block block = new Block(global.getCurrent().getCurrentBlockType());
-		                    Rectangle pos = new Rectangle(input.getMouseX(), input.getMouseY(), block.getBlockImg().getImage().getWidth(), block.getBlockImg().getImage().getHeight());
+		                    Rectangle pos = new Rectangle(input.getMouseX()-15, input.getMouseY()-15, block.getBlockImg().getImage().getWidth(), block.getBlockImg().getImage().getHeight());
 		                    block.setBlockPos(pos);
 		                    block.setAffectBlockTotal(true);
 		                    block.setPlayerPlaced(true);
@@ -101,7 +100,7 @@ public class UpdateBlocks {
                 }
                 buttonPressed = false;
             }
-        }
+		}
 		
 		/*
 		 * Remove a block by right clicking
@@ -112,10 +111,15 @@ public class UpdateBlocks {
 				Block block = global.getCurrent().getCurrentVerse().getVerseBlocks().get(i);
 				if (block.getBlockPos().intersects(mousePos)){
 					if (Tools.getDistance(block.getBlockPos(), global.getCurrent().getCurrentPlayer(global.getCurrent()).getEntityPos())<blockPlaceDistance){
-						if (block.getBlockImg().getName().contains("wood")){
+						if (block.getBlockImg().getName().contains("wood")){							
 							global.getCurrent().setCurrentBlockType(block);
 							global.getCurrent().getCurrentVerse().getVerseBlocks().remove(block);
 							global.getMenuByName("game").getMenuItemByName("invblock").setImg(block.getBlockImg());
+							//check for downed btns
+							for (Block btnBlock : global.getCurrent().getCurrentVerse().getVerseBlocks()){
+								if (btnBlock.getBlockImg().getName().contains("block_btnDown")) 
+									btnBlock.setBlockImg(global.getImageByName("block_btnUp"));
+							}
 							break;
 						}
 					}
@@ -140,43 +144,27 @@ public class UpdateBlocks {
 					block.setBlockY(y += 1);
 					
 					//Check Block Collision
-					Boolean blockCollision=false;
 					if (processBlockCollisions(block, global)){
-						blockCollision=true;
 						//Halt falling if collision detected
 						if (!returnBlock.getBlockImg().getName().contains("btn") && !returnBlock.getBlockImg().getName().contains("respawn")){
 							block.setBlockY(y -= 1);
 						}
 						//Check if wood block landed on button or respawn
-						else if (returnBlock.getBlockImg().getName().contains("btn") && returnBlock.getBlockY()-12<block.getBlockY()){
+						else if (returnBlock.getBlockImg().getName().contains("btn") && returnBlock.getBlockY()-8<block.getBlockY()){
 							block.setBlockY(y -= 1);
+							UpdateButtonBlock.updateButtonBlock(global, returnEffectBlock);
 						}
 						else if (returnBlock.getBlockImg().getName().contains("respawn") && returnBlock.getBlockY()-8<block.getBlockY()){
 							block.setBlockY(y -= 1);
 						}
+						else if (returnBlock.getBlockImg().getName().contains("block_btnDown")){
+							returnBlock.setBlockImg(global.getImageByName("block_btnUp"));
+						}
 					}
-					//Check Entity Collision
-					if (processEntCollisions(block, global)){
-						if (blockCollision){
-							//Check for wall collision
-							Rectangle pos = new Rectangle(block.getBlockX(),block.getBlockY()-5,30,30);
-							if (!returnBlock.getBlockImg().getName().contains("respawn")){
-								if (!pos.intersects(returnBlock.getBlockPos())){
-									moveWoodBlock(global, block);
-								}
-							}
-							else{
-								Rectangle pos1 = pos;
-								pos1.setX(pos.getX()+30);
-								Rectangle pos2 = pos;
-								pos2.setX(pos.getX()-30);
-								if (pos1.intersects(returnBlock.getBlockPos()) && returnBlock.getBlockPos().intersects(returnEnt.getEntityPos())){
-									moveWoodBlock(global, block);
-								}
-								else if (pos2.intersects(returnBlock.getBlockPos()) && returnBlock.getBlockPos().intersects(returnEnt.getEntityPos())){
-									moveWoodBlock(global, block);
-								}
-							}
+					else{
+						for (Block btnBlock : blocks){
+							if (btnBlock.getBlockImg().getName().contains("block_btnDown")) 
+								btnBlock.setBlockImg(global.getImageByName("block_btnUp"));
 						}
 					}
 				}
@@ -184,16 +172,61 @@ public class UpdateBlocks {
 			prevMilli = System.currentTimeMillis();
 		}
 	}
-	public static void moveWoodBlock(Global global, Block block){
-		if (returnEnt.getEntityImg().getName().contains("player")){
-			//Determine if player is not standing on it
-			if (returnEnt.getEntityY()>block.getBlockY()){
-				//Determine if moving left or right
-				if (returnEnt.getEntityX() - block.getBlockX() > 0){
-					block.setBlockX(block.getBlockX() - 1);
+	public static void updateDoorBlocks(Global global){
+		
+		if (prevMilli2<=0) prevMilli2 = System.currentTimeMillis();
+		
+		if ((System.currentTimeMillis()-prevMilli2)>=blockFallSpeed){
+			ArrayList<Block> blocks = global.getCurrent().getCurrentVerse().getVerseBlocks();
+			for (int i=0; i<blocks.size(); i++){
+				Block block = blocks.get(i);
+				if (block.getBlockImg().getName().equals("block_door")){
+					//Block Falling
+					int y = (int) block.getBlockPos().getY();
+					block.setBlockY(y += 1);
+					
+					//Check Block Collision
+					if (processBlockCollisions(block, global)){
+						//Halt falling if collision detected
+						if (!returnBlock.getBlockImg().getName().equals("block_doorway")){
+							block.setBlockY(y -= 1);
+						}
+						
+						//Add this if door needs to go upward out of a doorway...still bugged
+//						if (returnBlock.getBlockImg().getName().equals("block_doorway")){
+//							Rectangle up = new Rectangle(returnBlock.getBlockX(),returnBlock.getBlockY()-30,30,30);
+//							Rectangle down = new Rectangle(returnBlock.getBlockX(),returnBlock.getBlockY()+30,30,30);
+//							if (processBlockPosCollision(up,global)){
+//								block.setBlockY(y -= 1);
+//							}
+//							else if (processBlockPosCollision(down,global)){
+//								block.setBlockY(y += 1);
+//							}
+//						}
+					}
 				}
-				else if (returnEnt.getEntityX() - block.getBlockX() < 0){
+			}
+			prevMilli2 = System.currentTimeMillis();
+		}
+	}
+	public static void moveWoodBlock(Global global, Block block, Rectangle position){
+		//Determine if standing on top of block
+		if (global.getCurrent().getCurrentPlayer(global.getCurrent()).getEntityY()-3>=block.getBlockY()){
+			//Determine if moving left or right
+			if (position.getX() - block.getBlockX() > 0){
+				block.setBlockX(block.getBlockX() - 1);
+				//Check block collisions left
+				Rectangle pos = new Rectangle(block.getBlockX(),block.getBlockY()-15,0,0);
+				if (processBlockPosCollision(pos, global)){
 					block.setBlockX(block.getBlockX() + 1);
+				}
+			}
+			else if (position.getX() - block.getBlockX() < 0){
+				block.setBlockX(block.getBlockX() + 1);
+				//Check block collisions right
+				Rectangle pos = new Rectangle(block.getBlockX()+30,block.getBlockY()-15,0,0);
+				if (processBlockPosCollision(pos, global)){
+					block.setBlockX(block.getBlockX() - 1);
 				}
 			}
 		}
@@ -201,11 +234,15 @@ public class UpdateBlocks {
 	
 	public static Boolean processAllCollisions(Input input, Global global)
     {
-		ArrayList<Block> blocks = global.getCurrent().getCurrentVerse().getVerseBlocks();
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		if (global.getCurrent().getCurrentVerse().getVerseEffectBlocks()!=null)
+			blocks.addAll(global.getCurrent().getCurrentVerse().getVerseEffectBlocks());
+		blocks.addAll(global.getCurrent().getCurrentVerse().getVerseBlocks());
+		
 		ArrayList<Entity> ents = new ArrayList<Entity>();
 		ents.addAll(global.getCurrent().getCurrentVerse().getVerseEntities());
 		ents.add(global.getCurrent().getCurrentPlayer(global.getCurrent()));
-		Rectangle mousePos = new Rectangle(input.getMouseX(),input.getMouseY(),30,30);
+		Rectangle mousePos = new Rectangle(input.getMouseX()-15,input.getMouseY()-15,30,30);
 		
         for (int i=0; i<blocks.size(); i++){
         	Block block = blocks.get(i);
@@ -234,14 +271,35 @@ public class UpdateBlocks {
         }
         return false;
     }
+	public static Boolean processBlockPosCollision(Rectangle rect, Global global){
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		if (global.getCurrent().getCurrentVerse().getVerseEffectBlocks()!=null)
+			blocks.addAll(global.getCurrent().getCurrentVerse().getVerseEffectBlocks());
+		blocks.addAll(global.getCurrent().getCurrentVerse().getVerseBlocks());
+		
+        for (int i=0; i<blocks.size(); i++){
+        	Block block = blocks.get(i);
+        	if (block.getBlockPos().intersects(rect)) {
+        		returnBlock = block;
+        		return true;
+        	}
+        }
+        return false;
+	}
 	public static Boolean processBlockCollisions(Block block, Global global)
     {
-		ArrayList<Block> blocks = global.getCurrent().getCurrentVerse().getVerseBlocks();
-
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		if (global.getCurrent().getCurrentVerse().getVerseEffectBlocks()!=null)
+			blocks.addAll(global.getCurrent().getCurrentVerse().getVerseEffectBlocks());
+		blocks.addAll(global.getCurrent().getCurrentVerse().getVerseBlocks());
+		
         for (int i=0; i<blocks.size(); i++){
         	Block block2 = blocks.get(i);
         	if (block2!=block){
 	            if (block2.getBlockPos().intersects(block.getBlockPos())){
+	            	if (block2.getBlockImg().getName().contains("block_btn")){
+	            		returnEffectBlock = (EffectBlock) block2;
+	            	}
 	            	returnBlock = block2;
 		            return true;
 	            }

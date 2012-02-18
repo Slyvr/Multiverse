@@ -3,6 +3,7 @@ package com.slyvr.update;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
 
@@ -16,6 +17,7 @@ public class Updater {
 			UpdatePlayer.updateMovement(container, global);
 			UpdateBlocks.updateBlockPlacement(global, container);
 			UpdateBlocks.updateWoodBlocks(global);
+			UpdateBlocks.updateDoorBlocks(global);
 		}
 		
 		UpdateButtonClick.update(container, global);

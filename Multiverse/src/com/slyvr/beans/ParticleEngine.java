@@ -15,6 +15,10 @@ public class ParticleEngine {
     private ArrayList<Particle> particles;
     private ArrayList<Img> imgs;
 
+    public ParticleEngine(){
+    	
+    }
+    
     public ParticleEngine(ArrayList<Img> imgs, Rectangle location)
     {
         EmitterLocation = location;
@@ -23,9 +27,19 @@ public class ParticleEngine {
         random = new Random();
     }
 
+    public Rectangle getEmitterLocation(){
+    	return EmitterLocation;
+    }
+    public void setEmitterLocation(Rectangle pos){
+    	this.EmitterLocation=pos;
+    }
+    
     public ArrayList<Particle> getParticles()
     {
         return particles;
+    }
+    public void setParticles(ArrayList<Particle> particles){
+    	this.particles=particles;
     }
 
     public void Update(int lifetime)
@@ -40,7 +54,7 @@ public class ParticleEngine {
         for (int particle = 0; particle < particles.size(); particle++)
         {
             particles.get(particle).Update();
-            if (particles.get(particle).TTL <= 0)
+            if (particles.get(particle).getTTL() <= 0)
             {
                 particles.remove(particle);
                 particle--;

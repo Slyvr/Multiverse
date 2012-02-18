@@ -12,6 +12,7 @@ public class Renderer {
 		
 		RenderBlocks.renderBlocks(g, global);
 		RenderEntities.renderEntities(g, global);
+		RenderParticles.renderParticles(g, global);
 		
 		//Always last on list, on top
 		RenderMenu.renderMenu(g, global);

@@ -30,5 +30,17 @@ public class RenderBlocks {
 				}
 			}
 		}
+		//render verseEffectBlocks
+		if (currentVerse.getVerseEffectBlocks()!=null)
+		for (int i=0; i<currentVerse.getVerseEffectBlocks().size(); i++){
+			EffectBlock block = currentVerse.getVerseEffectBlocks().get(i);
+			if (block!=null){
+				if (block.getBlockImg()!=null){
+					if (block.getBlockImg().getImage()!=null){
+						block.getBlockImg().getImage().draw(block.getBlockPos().getX(),block.getBlockPos().getY(), block.getBlockPos().getWidth(),block.getBlockPos().getHeight());
+					}
+				}
+			}
+		}
 	}
 }

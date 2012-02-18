@@ -15,7 +15,6 @@ public class InitParticles {
         ParticleEngine particleEngine;
         ArrayList<Img> particleTexes = new ArrayList<Img>();
         particleTexes.add(new Img(new Image("resources/imgs/particle1.png"),"particle1"));
-        particleTexes.add(new Img(new Image("resources/imgs/particle2.png"),"particle2"));
         particleEngine = new ParticleEngine(particleTexes, new Rectangle(400, 240,0,0));
         global.setParticleEngine(particleEngine);
     }

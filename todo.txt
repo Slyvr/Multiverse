@@ -5,12 +5,10 @@ _block_respawn
 _logo?
 
 Code (In order of priority):
-_UpdateButtons
-_UpdateDoors
+_Console textfield input (~)
 _UpdateLevers
-_Player-Portal interaction
 _UpdateEnemies
-_Level1
-_Level2
+_Middle click verse transitions
 _Level3
 _Level4
+_Interactive End Credits

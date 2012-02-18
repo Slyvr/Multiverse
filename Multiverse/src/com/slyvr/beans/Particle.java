@@ -25,28 +25,70 @@ public class Particle {
         this.size = size;
         this.TTL = ttl;
     }
+    
+    //Img
+    public Img getImg() {
+		return img;
+	}
+	public void setImg(Img img) {
+		this.img = img;
+	}
+	//Position
+	public Rectangle getPosition() {
+		return position;
+	}
+	public void setPosition(Rectangle position) {
+		this.position = position;
+	}
+	//Velocity
+	public Rectangle getVelocity() {
+		return velocity;
+	}
+	public void setVelocity(Rectangle velocity) {
+		this.velocity = velocity;
+	}
+	//Angle
+	public float getAngle() {
+		return angle;
+	}
+	public void setAngle(float angle) {
+		this.angle = angle;
+	}
+	//AngularVelocity
+	public float getAngularVelocity() {
+		return angularVelocity;
+	}
+	public void setAngularVelocity(float angularVelocity) {
+		this.angularVelocity = angularVelocity;
+	}
+	//Color
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	//Size
+	public float getSize() {
+		return size;
+	}
+	public void setSize(float size) {
+		this.size = size;
+	}
+	//Time To Live
+	public int getTTL() {
+		return TTL;
+	}
+	public void setTTL(int tTL) {
+		TTL = tTL;
+	}
 
-    public void Update()
+	public void Update()
     {
         TTL--;
         //just add x+x and y+y
-        //position += velocity;
+        position.setX(position.getX()+velocity.getX());
+        position.setY(position.getY()+velocity.getY());
         angle += angularVelocity;
     }
-    public void UpdateGun(float x, float y)
-    {
-        TTL--;
-        //just add x+x, y+y
-        //position += new Rectangle(x,y,0,0);
-        angle += angularVelocity;
-    }
-
-//    public void Draw(SpriteBatch spriteBatch)
-//    {
-//        Rectangle sourceRectangle = new Rectangle(0, 0, Texture.Width, Texture.Height);
-//        Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
-//
-//        spriteBatch.Draw(Texture, Position, sourceRectangle, Color,
-//            Angle, origin, Size, SpriteEffects.None, 0f);
-//    }
 }

@@ -1,15 +1,17 @@
 package com.slyvr.beans;
 
+import java.util.List;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Block {
-    private Rectangle blockPos;
-    private Img blockImg;
-    private Boolean removable;
-    private Boolean affectBlockTotal;
-    private Boolean playerPlaced;
-    private Color color;
+    protected Rectangle blockPos;
+    protected Img blockImg;
+    protected Boolean removable;
+    protected Boolean affectBlockTotal;
+    protected Boolean playerPlaced;
+    protected Color color;
 
     //Constructor
     public Block()

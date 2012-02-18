@@ -79,24 +79,24 @@ public class UpdateButtonClick {
 					global.getCurrent().setMenu(global.getMenuByName("options"));
 					global.getSoundByName("cursor1").getSfx().play();
 				}
-				if (pressedItem.getName().equals("btn_changeVol")){
-					float vol = global.getCurrent().getSong().getVolume();
-					if (vol>=1) global.getCurrent().getSong().setVolume(0);
-					else global.getCurrent().getSong().setVolume(vol+=0.2);
-					global.getMenuByName("options").getMenuItemByName("txt_volume").setText("Volume: "+global.getCurrent().getSong().getVolume());
-					global.getSoundByName("cursor1").getSfx().play();
-				}
-				if (pressedItem.getName().equals("btn_changeFullScreen")){
-					if (container.isFullscreen()){
-						container.setFullscreen(false);
-						global.getMenuByName("options").getMenuItemByName("txt_fullscreen").setText("Windowed");
-					}
-					else {
-						container.setFullscreen(true);
-						global.getMenuByName("options").getMenuItemByName("txt_fullscreen").setText("Fullscreen");
-					}
-					global.getSoundByName("cursor1").getSfx().play();
-				}
+//				if (pressedItem.getName().equals("btn_changeVol")){
+//					float vol = global.getCurrent().getSong().getVolume();
+//					if (vol>=1) global.getCurrent().getSong().setVolume(0);
+//					else global.getCurrent().getSong().setVolume(vol+=0.2);
+//					global.getMenuByName("options").getMenuItemByName("txt_volume").setText("Volume: "+global.getCurrent().getSong().getVolume());
+//					global.getSoundByName("cursor1").getSfx().play();
+//				}
+//				if (pressedItem.getName().equals("btn_changeFullScreen")){
+//					if (container.isFullscreen()){
+//						container.setFullscreen(false);
+//						global.getMenuByName("options").getMenuItemByName("txt_fullscreen").setText("Windowed");
+//					}
+//					else {
+//						container.setFullscreen(true);
+//						global.getMenuByName("options").getMenuItemByName("txt_fullscreen").setText("Fullscreen");
+//					}
+//					global.getSoundByName("cursor1").getSfx().play();
+//				}
 				if (pressedItem.getName().equals("btn_changeControls")){
 					prevMenu = global.getCurrent().getMenu();
 					global.getCurrent().setMenu(global.getMenuByName("controls"));
