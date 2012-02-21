@@ -2,10 +2,13 @@ package com.slyvr.beans;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.GameContainer;
+
 public class Global {
 
 	private Current current;
 	private Options options;
+	private GameContainer container;
 	private ArrayList<Img> images;
 	private ArrayList<ImgSheet> sheets;
 	private ArrayList<Animate> animations;
@@ -42,6 +45,13 @@ public class Global {
     public void setOptions(Options options)
     {
         this.options = options;
+    }
+    //Container
+    public GameContainer getContainer(){
+    	return container;
+    }
+    public void setContainer(GameContainer container){
+    	this.container=container;
     }
 	//Images
 	public ArrayList<Img> getImages(){

@@ -70,6 +70,14 @@ public class InitImages {
 			images.add(new Img(new Image("resources/imgs/grids/grid_levelMain.png"),"grid_levelMain"));
 			images.add(new Img(new Image("resources/imgs/grids/grid_level1.png"),"grid_level1"));
 			images.add(new Img(new Image("resources/imgs/grids/grid_level2.png"),"grid_level2"));
+			images.add(new Img(new Image("resources/imgs/grids/grid_level3-1.png"),"grid_level3-1"));
+			images.add(new Img(new Image("resources/imgs/grids/grid_level3-2.png"),"grid_level3-2"));
+			
+			//Grid Bgs
+			images.add(new Img(new Image("resources/imgs/grids/bg_level1.png"),"bg_level1"));
+			images.add(new Img(new Image("resources/imgs/grids/bg_level2.png"),"bg_level2"));
+			images.add(new Img(new Image("resources/imgs/grids/bg_level3-1.png"),"bg_level3-1"));
+			images.add(new Img(new Image("resources/imgs/grids/bg_level3-2.png"),"bg_level3-2"));
 			
 		}catch(SlickException e){
 			e.printStackTrace();

@@ -8,9 +8,9 @@ import org.newdawn.slick.geom.Rectangle;
 
 import com.slyvr.beans.*;
 
-public class InitLevel2 {
+public class InitLevel3 {
 	
-	public static Level loadLevel2(Global global)
+	public static Level loadLevel3(Global global)
     {     
         //Verse1
         Verse verse = new Verse();
@@ -19,14 +19,13 @@ public class InitLevel2 {
         verse.setVerseBlockLimit(0);
         verse.setVerseString("*Get to the Portal!*");
         
-        Image bgTex = global.getImageByName("bg_level2").getImage();
+        Image bgTex = global.getImageByName("bg_level3-1").getImage();
         ArrayList<Block> bgBlocks = LevelTools.generateLevelBlocksBg(global, bgTex, false);
         verse.setVerseBackground(bgBlocks);
 
-        Image gridTex = global.getImageByName("grid_level2").getImage();
+        Image gridTex = global.getImageByName("grid_level3-1").getImage();
         ArrayList<Block> verseBlocks = LevelTools.generateLevelBlocks(global, gridTex, false);
         verse.setVerseBlocks(verseBlocks);
-        
         
         //Effect Blocks
         ArrayList<EffectBlock> verseEffectBlocks = LevelTools.generateLevelEffectBlocks(global, gridTex, false);
@@ -52,6 +51,21 @@ public class InitLevel2 {
         	}
         }
         
+        //Verse2
+        Verse verse2 = new Verse();
+        verse2.setVerseId(2);
+        verse2.setVerseBgColor(Color.gray);
+        verse2.setVerseBlockLimit(0);
+        verse2.setVerseString("*Get to the Portal!*");
+        
+        Image bgTex2 = global.getImageByName("bg_level3-2").getImage();
+        ArrayList<Block> bgBlocks2 = LevelTools.generateLevelBlocksBg(global, bgTex2, false);
+        verse2.setVerseBackground(bgBlocks2);
+
+        Image gridTex2 = global.getImageByName("grid_level3-2").getImage();
+        ArrayList<Block> verseBlocks2 = LevelTools.generateLevelBlocks(global, gridTex2, false);
+        verse2.setVerseBlocks(verseBlocks2);
+
 
         //Add Entities
         Entity player = new Entity(global.getEntityByName("ent_player"));
@@ -59,9 +73,10 @@ public class InitLevel2 {
 
         //Level
         Level level = new Level();
-        level.setLevelId(2);
+        level.setLevelId(3);
         //Add verses
         level.addLevelVerse(verse);
+        level.addLevelVerse(verse2);
         //Add entities
         level.addLevelEntity(player);
 

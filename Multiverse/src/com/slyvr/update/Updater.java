@@ -11,20 +11,21 @@ public class Updater {
 
 	static Input prevInput;
 	
-	public static void update(GameContainer container, int delta, Global global) throws SlickException{
+	public static void update(int delta, Global global) throws SlickException{
 
 		if (global.getCurrent().getMenu().getName().contains("game") && !global.getPaused()){
-			UpdatePlayer.updateMovement(container, global);
-			UpdateBlocks.updateBlockPlacement(global, container);
+			UpdatePlayer.updateMovement(global.getContainer(), global);
+			UpdateBlocks.updateBlockPlacement(global, global.getContainer());
 			UpdateBlocks.updateWoodBlocks(global);
 			UpdateBlocks.updateDoorBlocks(global);
+			UpdateVerse.updateMiddleClick(global);
 		}
 		
-		UpdateButtonClick.update(container, global);
-		UpdateButtonClick.getControlSelect(global, container);
-		UpdateMusic.update(container, global);
+		UpdateButtonClick.update(global.getContainer(), global);
+		UpdateButtonClick.getControlSelect(global, global.getContainer());
+		UpdateMusic.update(global.getContainer(), global);
 		
-		Input input = container.getInput();
+		Input input = global.getContainer().getInput();
 		if (prevInput==null) prevInput = input;
 		
 		MenuItem cursor = global.getMenuByName("constant").getMenuItemByName("btn_cursor");

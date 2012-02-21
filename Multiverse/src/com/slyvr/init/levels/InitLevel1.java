@@ -19,15 +19,9 @@ public class InitLevel1 {
         verse.setVerseBlockLimit(0);
         verse.setVerseString("*Get to the Portal!*");
         
-        ArrayList<Block> background = new ArrayList<Block>();
-        for(int x=0; x<990; x+=30){
-        	for (int y=30; y<660; y+=30){
-        		Block block = new Block(global.getBlockByTextureName("block_tech1_dark"));
-        		block.setBlockPos(new Rectangle(x,y,30,30));
-        		background.add(block);
-        	}
-        }
-        verse.setVerseBackground(background);
+        Image bgTex = global.getImageByName("bg_level1").getImage();
+        ArrayList<Block> bgBlocks = LevelTools.generateLevelBlocksBg(global, bgTex, false);
+        verse.setVerseBackground(bgBlocks);
 
         Image gridTex = global.getImageByName("grid_level1").getImage();
         ArrayList<Block> verseBlocks = LevelTools.generateLevelBlocks(global, gridTex, false);

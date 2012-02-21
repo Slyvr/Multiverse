@@ -128,6 +128,65 @@ public class LevelTools {
         return ents;
     }
     
+    public static ArrayList<Block> generateLevelBlocksBg(Global global, Image gridTex, Boolean removable){
+		System.out.println("Generating Level Blocks...");
+
+        ArrayList<Block> blocks = new ArrayList<Block>();
+
+        //Each Block
+        for (int y = 30; y < 660; y+=30){
+            for (int x = 0; x < 990; x+=30){
+                Color colorA = gridTex.getColor(x+5, y+5);
+            	
+                if (colorA.getRed() == 255 && colorA.getGreen() == 201 && colorA.getBlue() == 14){
+                    Block block = new Block(global.getBlockByTextureName("block_portal"));
+                    block.setBlockPos(new Rectangle(x,y,30,30));
+                    block.setRemovable(false);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed()== 112 && colorA.getGreen() == 146 && colorA.getBlue() == 190){
+                    Block block = new Block(global.getBlockByTextureName("block_respawn"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(false);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 185 && colorA.getGreen() == 122 && colorA.getBlue() == 87){
+                    Block block = new Block(global.getBlockByTextureName("block_wood"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 195 && colorA.getGreen() == 195 && colorA.getBlue() == 195){
+                    Block block = new Block(global.getBlockByTextureName("block_tech1_dark"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 127 && colorA.getGreen() == 127 && colorA.getBlue() == 127){
+                    Block block = new Block(global.getBlockByTextureName("block_tech2-1_dark"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 54 && colorA.getGreen() == 54 && colorA.getBlue() == 54){
+                    Block block = new Block(global.getBlockByTextureName("block_tech3_dark"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    blocks.add(block);
+                }
+                else if (colorA.getRed() == 216 && colorA.getGreen() == 216 && colorA.getBlue() == 216){
+                    Block block = new Block(global.getBlockByTextureName("block_doorway"));
+                    block.setBlockPos(new Rectangle(x, y, 30, 30));
+                    block.setRemovable(removable);
+                    blocks.add(block);
+                }
+            }
+        }
+        System.out.println("Level Blocks Generated!");
+
+        return blocks;
+    }
+    
     public static Level getNextLevel(Global global){
     	int index=0;
 		for (index=0; index<global.getLevels().size(); index++){
@@ -139,7 +198,7 @@ public class LevelTools {
 		Level level = null;
 		if (index==0) level = InitLevel1.loadLevel1(global);
 		else if (index==1) level = InitLevel2.loadLevel2(global);
-		else if (index==2) level = InitLevel1.loadLevel1(global);
+		else if (index==2) level = InitLevel3.loadLevel3(global);
 		else if (index==3) level = InitLevel1.loadLevel1(global);
 		
 		global.getLevels().add(level);

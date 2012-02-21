@@ -29,7 +29,8 @@ public class Main extends BasicGame {
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		Updater.update(container, delta, global);
+		if (global.getContainer()==null) global.setContainer(container);
+		Updater.update(delta, global);
 	}
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {

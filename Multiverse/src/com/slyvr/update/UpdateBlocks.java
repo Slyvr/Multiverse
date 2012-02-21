@@ -154,7 +154,7 @@ public class UpdateBlocks {
 							block.setBlockY(y -= 1);
 							UpdateButtonBlock.updateButtonBlock(global, returnEffectBlock);
 						}
-						else if (returnBlock.getBlockImg().getName().contains("respawn") && returnBlock.getBlockY()-8<block.getBlockY()){
+						else if (returnBlock.getBlockImg().getName().contains("respawn") && returnBlock.getBlockY()-1<block.getBlockY()){
 							block.setBlockY(y -= 1);
 						}
 						else if (returnBlock.getBlockImg().getName().contains("block_btnDown")){
